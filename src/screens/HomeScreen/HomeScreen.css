@@ -12,6 +12,19 @@
   gap: 12px;
 }
 
+.home-brand-mark {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: var(--clay-radius-sm);
+  background: var(--clay-surface);
+  color: var(--clay-accent-dark);
+  box-shadow: var(--clay-raised);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .home-brand-texts {
   flex: 1;
   min-width: 0;
@@ -37,6 +50,19 @@
   text-align: center;
   gap: 10px;
   padding: 12px 0 4px;
+}
+
+.home-hero-mark {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--clay-surface);
+  color: var(--clay-accent);
+  box-shadow: var(--clay-raised-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
 }
 
 .home-hero h1 {

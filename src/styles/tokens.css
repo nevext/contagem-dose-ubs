@@ -21,9 +21,6 @@
   --clay-danger: #b3453f;
   --clay-danger-soft: #f4dcda;
 
-  /* Cor real da fachada da USF (placa "USF Silvio Santos" na entrada). */
-  --brand-teal: #1b7a8c;
-
   --clay-shadow-light: rgba(255, 255, 255, 0.85);
   --clay-shadow-dark: rgba(148, 181, 161, 0.45);
   --clay-shadow-dark-strong: rgba(101, 138, 118, 0.55);
