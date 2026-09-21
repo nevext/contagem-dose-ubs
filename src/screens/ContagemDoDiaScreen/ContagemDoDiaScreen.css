@@ -1,0 +1,158 @@
+.contagem-dia-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding-bottom: 24px;
+  gap: 18px;
+}
+
+.vaccine-detail-card {
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: var(--clay-radius-lg);
+  background: var(--clay-surface);
+  box-shadow: var(--clay-raised-strong);
+}
+
+.vaccine-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vaccine-detail-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--clay-accent-soft);
+  color: var(--clay-accent-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vaccine-detail-titles {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.vaccine-detail-titles strong {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--clay-text-heading);
+}
+
+.vaccine-detail-titles span {
+  font-size: 13px;
+  color: var(--clay-text-muted);
+}
+
+.vaccine-status-badge {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--clay-accent-soft);
+  color: var(--clay-accent-dark);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.vaccine-detail-divider {
+  height: 1px;
+  background: var(--clay-divider);
+}
+
+.vaccine-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.vaccine-detail-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vaccine-detail-grid span {
+  font-size: 12px;
+  color: var(--clay-text-muted);
+}
+
+.vaccine-detail-grid strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--clay-text-heading);
+}
+
+.vaccine-detail-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.vaccine-detail-footer-grid > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--clay-accent-dark);
+}
+
+.vaccine-detail-footer-grid > div > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.vaccine-detail-footer-grid span {
+  font-size: 12px;
+  color: var(--clay-text-muted);
+}
+
+.vaccine-detail-footer-grid strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--clay-text-heading);
+}
+
+.vaccine-detail-info-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: var(--clay-radius-md);
+  background: var(--clay-surface-strong);
+  color: var(--clay-accent-dark);
+}
+
+.vaccine-detail-info-row span {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.contagem-dia-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  text-align: center;
+}
+
+.contagem-dia-footer strong {
+  font-size: 13px;
+  color: var(--clay-text-heading);
+}
+
+.contagem-dia-footer span {
+  font-size: 11px;
+  color: var(--clay-text-muted);
+}

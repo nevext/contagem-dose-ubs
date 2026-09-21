@@ -1,0 +1,59 @@
+.counter-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--clay-radius-lg);
+  background: var(--clay-surface-strong);
+  box-shadow: var(--clay-pressed);
+}
+
+.counter-button {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: var(--clay-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.counter-button:active {
+  transform: scale(0.95);
+}
+
+.counter-button-minus {
+  background: var(--clay-accent-soft);
+  color: var(--clay-accent-dark);
+  box-shadow: var(--clay-raised);
+}
+
+.counter-button-plus {
+  background: var(--clay-accent);
+  color: var(--clay-text-on-accent);
+  box-shadow: var(--clay-raised-strong);
+}
+
+.counter-value {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.counter-value strong {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--clay-text-heading);
+  line-height: 1.1;
+}
+
+.counter-value span {
+  font-size: 12px;
+  color: var(--clay-text-muted);
+}

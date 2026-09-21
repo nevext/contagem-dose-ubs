@@ -1,0 +1,115 @@
+.vacinacao-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding-bottom: 24px;
+  gap: 18px;
+}
+
+.vacinacao-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px;
+  color: var(--clay-text-body);
+  font-size: 14px;
+}
+
+.contagem-summary-card {
+  margin: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px;
+  border: none;
+  border-radius: var(--clay-radius-lg);
+  background: var(--clay-surface);
+  box-shadow: var(--clay-raised-strong);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.contagem-summary-card:active {
+  box-shadow: var(--clay-pressed);
+  transform: scale(0.99);
+}
+
+.contagem-summary-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contagem-summary-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--clay-text-heading);
+}
+
+.contagem-summary-value {
+  font-size: 44px;
+  font-weight: 800;
+  color: var(--clay-accent-dark);
+  line-height: 1.1;
+}
+
+.contagem-summary-caption {
+  font-size: 13px;
+  color: var(--clay-text-muted);
+}
+
+.contagem-summary-icon {
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--clay-accent-soft);
+  color: var(--clay-accent-dark);
+  box-shadow: var(--clay-raised);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vacinacao-nav-list {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.vacinacao-footer {
+  margin-top: auto;
+  padding: 12px 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.vacinacao-footer-line {
+  width: 1px;
+  align-self: stretch;
+  min-height: 32px;
+  background: var(--clay-divider);
+}
+
+.vacinacao-footer div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  text-align: right;
+  margin-left: auto;
+}
+
+.vacinacao-footer strong {
+  font-size: 14px;
+  color: var(--clay-text-heading);
+}
+
+.vacinacao-footer span {
+  font-size: 11px;
+  color: var(--clay-text-muted);
+}

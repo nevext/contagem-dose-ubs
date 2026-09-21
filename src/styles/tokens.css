@@ -1,0 +1,34 @@
+/* Tokens do estilo claymorphism usado em todo o app. Ajustar aqui muda o app inteiro. */
+:root {
+  --clay-bg-top: #eef6ef;
+  --clay-bg-mid: #dcebe1;
+  --clay-bg-bottom: #cfe3d6;
+
+  --clay-surface: #eef6f0;
+  --clay-surface-strong: #e3f0e6;
+
+  --clay-accent: #4f8a70;
+  --clay-accent-dark: #366654;
+  --clay-accent-soft: #cfe6d6;
+
+  --clay-text-heading: #17301f;
+  --clay-text-body: #2f4a3a;
+  --clay-text-muted: #7c9086;
+  --clay-text-on-accent: #f2fbf5;
+
+  --clay-divider: #d7e6db;
+
+  --clay-shadow-light: rgba(255, 255, 255, 0.85);
+  --clay-shadow-dark: rgba(148, 181, 161, 0.45);
+  --clay-shadow-dark-strong: rgba(101, 138, 118, 0.55);
+
+  --clay-radius-lg: 28px;
+  --clay-radius-md: 20px;
+  --clay-radius-sm: 14px;
+
+  --clay-raised: 8px 8px 18px var(--clay-shadow-dark), -8px -8px 18px var(--clay-shadow-light);
+  --clay-raised-strong: 10px 10px 22px var(--clay-shadow-dark-strong), -8px -8px 18px var(--clay-shadow-light);
+  --clay-pressed: inset 4px 4px 10px var(--clay-shadow-dark), inset -4px -4px 10px var(--clay-shadow-light);
+
+  font-family: 'Baloo 2', 'Quicksand', system-ui, -apple-system, sans-serif;
+}
