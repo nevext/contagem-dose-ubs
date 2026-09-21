@@ -54,7 +54,8 @@ function SettingsScreen({ onClearData, onExportBackup, onImportBackup, onBack })
           <div className="settings-about-texts">
             <strong>Contagem de Doses · USF</strong>
             <span>v{APP_VERSION} · Protótipo de extensão universitária, CIESA</span>
-            <span>Projeto: David Neves de Figueiredo, Samia Albuquerque, Yara Vaz da Silva e Jhemerson Conde, em parceria com a USF.</span>
+            <span>Projeto: David Neves de Figueiredo, Samia Albuquerque, Yara Vaz da Silva e Jhemeson Conde, em parceria com a USF.</span>
+            // TIRA O 'R' AAAAAAAAAAA
           </div>
         </div>
 
