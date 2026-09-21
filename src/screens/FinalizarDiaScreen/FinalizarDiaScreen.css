@@ -12,6 +12,24 @@
   gap: 18px;
 }
 
+.finalizar-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--clay-text-body);
+  font-size: 14px;
+}
+
+.finalizar-summary {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: var(--clay-radius-md);
+  background: var(--clay-surface-strong);
+  color: var(--clay-text-heading);
+  font-size: 14px;
+  font-weight: 600;
+}
+
 .finalizar-list {
   list-style: none;
   margin: 0;
@@ -31,22 +49,36 @@
   box-shadow: var(--clay-raised);
 }
 
-.finalizar-item-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.finalizar-item-head strong {
+.finalizar-item-name {
   font-size: 16px;
   font-weight: 700;
   color: var(--clay-text-heading);
 }
 
-.finalizar-item-head span {
-  font-size: 12px;
+.finalizar-item-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: var(--clay-radius-md);
+  background: var(--clay-surface-strong);
+}
+
+.finalizar-item-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.finalizar-item-grid span {
+  font-size: 11px;
   color: var(--clay-text-muted);
+}
+
+.finalizar-item-grid strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--clay-text-heading);
 }
 
 .finalizar-item-field {
@@ -123,6 +155,41 @@
   gap: 8px;
   font-size: 13px;
   font-weight: 600;
+}
+
+.finalizar-final-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.finalizar-final-summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 16px;
+  border-radius: var(--clay-radius-lg);
+}
+
+.finalizar-final-summary-item strong {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.finalizar-final-summary-item span {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.finalizar-final-summary-ok {
+  background: var(--clay-accent-soft);
+  color: var(--clay-accent-dark);
+}
+
+.finalizar-final-summary-bad {
+  background: var(--clay-danger-soft);
+  color: var(--clay-danger);
 }
 
 .finalizar-actions {
