@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
-import { HistoryIcon, CheckIcon, AlertIcon, ChevronRightIcon } from '../../icons'
+import { HistoryIcon, CheckIcon, AlertIcon, ChevronRightIcon, DownloadIcon } from '../../icons'
+import { exportHistoricoCsv } from '../../utils/exportData'
 import './HistoricoScreen.css'
 
 function formatDate(isoDate) {
@@ -70,7 +71,12 @@ function HistoricoScreen({ history, onBack }) {
             <p>Assim que você concluir um dia em "Finalizar o Dia", ele aparece aqui.</p>
           </div>
         ) : (
-          <ul className="historico-list">
+          <>
+            <button type="button" className="historico-export-button clay-tap" onClick={() => exportHistoricoCsv(history)}>
+              <DownloadIcon size={18} />
+              <span>Exportar histórico (CSV)</span>
+            </button>
+            <ul className="historico-list">
             {history.map((record) => {
               const divergent = record.entries.filter((entry) => entry.diff !== 0).length
               return (
@@ -88,7 +94,8 @@ function HistoricoScreen({ history, onBack }) {
                 </li>
               )
             })}
-          </ul>
+            </ul>
+          </>
         )}
       </div>
     </div>

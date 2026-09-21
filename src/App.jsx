@@ -8,6 +8,7 @@ import HistoricoScreen from './screens/HistoricoScreen/HistoricoScreen'
 import VaccineInfoScreen from './screens/VaccineInfoScreen/VaccineInfoScreen'
 import VaccineFormScreen from './screens/VaccineFormScreen/VaccineFormScreen'
 import SettingsScreen from './screens/SettingsScreen/SettingsScreen'
+import { exportBackupJson } from './utils/exportData'
 import './App.css'
 
 const STORAGE_KEY = 'contagem-dose-ubs'
@@ -205,7 +206,9 @@ function App() {
     const vaccine = vaccines.find((item) => item.id === infoVaccineId)
     activeScreen = vaccine ? <VaccineInfoScreen vaccine={vaccine} onBack={() => setScreen('contagem')} /> : renderVacinacao()
   } else if (screen === 'settings') {
-    activeScreen = <SettingsScreen onClearData={clearAllData} onBack={() => setScreen('home')} />
+    activeScreen = (
+      <SettingsScreen onClearData={clearAllData} onExportBackup={() => exportBackupJson(state)} onBack={() => setScreen('home')} />
+    )
   }
 
   return <div className="app-shell">{activeScreen}</div>

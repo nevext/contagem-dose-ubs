@@ -196,3 +196,12 @@ export function HealthMarkIcon({ size = 24, className }) {
     </svg>
   )
 }
+
+export function DownloadIcon({ size = 24, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 3.5v11M7.5 10.5l4.5 4.5 4.5-4.5" />
+      <path d="M4.5 17v2.5a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V17" />
+    </svg>
+  )
+}

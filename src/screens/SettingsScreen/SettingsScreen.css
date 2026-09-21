@@ -61,6 +61,7 @@
   line-height: 1.4;
 }
 
+.settings-option,
 .settings-danger-option {
   display: flex;
   align-items: center;
@@ -75,16 +76,25 @@
   font-family: inherit;
 }
 
+.settings-option-icon,
 .settings-danger-icon {
   width: 40px;
   height: 40px;
   flex-shrink: 0;
   border-radius: var(--clay-radius-sm);
-  background: var(--clay-danger-soft);
-  color: var(--clay-danger);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.settings-option-icon {
+  background: var(--clay-accent-soft);
+  color: var(--clay-accent-dark);
+}
+
+.settings-danger-icon {
+  background: var(--clay-danger-soft);
+  color: var(--clay-danger);
 }
 
 .settings-option-texts {
