@@ -197,6 +197,32 @@ export function HealthMarkIcon({ size = 24, className }) {
   )
 }
 
+export function SearchIcon({ size = 24, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="M19.5 19.5l-4.3-4.3" />
+    </svg>
+  )
+}
+
+export function UploadIcon({ size = 24, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 15.5v-11M7.5 8l4.5-4.5L16.5 8" />
+      <path d="M4.5 17v2.5a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V17" />
+    </svg>
+  )
+}
+
+export function CloseIcon({ size = 24, className }) {
+  return (
+    <svg {...base(size)} className={className} strokeWidth={2.2}>
+      <path d="M6 6l12 12M18 6L6 18" />
+    </svg>
+  )
+}
+
 export function DownloadIcon({ size = 24, className }) {
   return (
     <svg {...base(size)} className={className}>

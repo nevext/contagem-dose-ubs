@@ -1,6 +1,6 @@
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import NavCard from '../../components/NavCard/NavCard'
-import { SyringeIcon, ClipboardIcon, HistoryIcon, CalendarIcon, DotsIcon } from '../../icons'
+import { SyringeIcon, ClipboardIcon, HistoryIcon, CalendarIcon, SearchIcon } from '../../icons'
 import './VacinacaoScreen.css'
 
 // Menu da secao Vacinacao: resumo do dia + acesso as sub-telas.
@@ -12,10 +12,17 @@ function VacinacaoScreen({
   onOpenCadastro,
   onOpenFinalizar,
   onOpenHistorico,
+  onOpenSearch,
 }) {
   return (
     <div className="vacinacao-screen screen-enter">
-      <ScreenHeader title="Vacinação" onBack={onBack} rightIcon={<DotsIcon size={22} />} />
+      <ScreenHeader
+        title="Vacinação"
+        onBack={onBack}
+        rightIcon={<SearchIcon size={20} />}
+        rightLabel="Buscar vacina"
+        onRightAction={onOpenSearch}
+      />
 
       <div className="vacinacao-date">
         <CalendarIcon size={18} />

@@ -7,6 +7,7 @@ import FinalizarDiaScreen from './screens/FinalizarDiaScreen/FinalizarDiaScreen'
 import HistoricoScreen from './screens/HistoricoScreen/HistoricoScreen'
 import VaccineInfoScreen from './screens/VaccineInfoScreen/VaccineInfoScreen'
 import VaccineFormScreen from './screens/VaccineFormScreen/VaccineFormScreen'
+import VaccineSearchScreen from './screens/VaccineSearchScreen/VaccineSearchScreen'
 import SettingsScreen from './screens/SettingsScreen/SettingsScreen'
 import { exportBackupJson, exportHistoricoCsv } from './utils/exportData'
 import './App.css'
@@ -130,6 +131,8 @@ function App() {
   }
 
   const openInfo = (id) => {
+    const index = vaccines.findIndex((vaccine) => vaccine.id === id)
+    if (index >= 0) setActiveIndex(index)
     setInfoVaccineId(id)
     setScreen('info')
   }
@@ -159,6 +162,7 @@ function App() {
       onOpenCadastro={() => setScreen('cadastro')}
       onOpenFinalizar={() => setScreen('finalizar')}
       onOpenHistorico={() => setScreen('historico')}
+      onOpenSearch={() => setScreen('search')}
     />
   )
 
@@ -191,7 +195,7 @@ function App() {
         onBack={() => setScreen('vacinacao')}
         onOpenInfo={openInfo}
         onOpenCadastro={() => setScreen('cadastro')}
-        onOpenHistorico={() => setScreen('historico')}
+        onOpenSearch={() => setScreen('search')}
       />
     )
   } else if (screen === 'cadastro') {
@@ -213,6 +217,8 @@ function App() {
     )
   } else if (screen === 'historico') {
     activeScreen = <HistoricoScreen history={history} onDeleteRecord={deleteHistoryRecord} onBack={() => setScreen('vacinacao')} />
+  } else if (screen === 'search') {
+    activeScreen = <VaccineSearchScreen vaccines={vaccines} onOpenInfo={openInfo} onBack={() => setScreen('vacinacao')} />
   } else if (screen === 'info') {
     const vaccine = vaccines.find((item) => item.id === infoVaccineId)
     activeScreen = vaccine ? <VaccineInfoScreen vaccine={vaccine} onBack={() => setScreen('contagem')} /> : renderVacinacao()

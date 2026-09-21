@@ -3,7 +3,7 @@ import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import VaccineCarousel from '../../components/VaccineCarousel/VaccineCarousel'
 import CounterControl from '../../components/CounterControl/CounterControl'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
-import { SyringeIcon, CalendarIcon, BoxIcon, InfoIcon, ChevronRightIcon } from '../../icons'
+import { SyringeIcon, SearchIcon, BoxIcon, InfoIcon, ChevronRightIcon } from '../../icons'
 import { formatDateBR } from '../../utils/date'
 import './ContagemDoDiaScreen.css'
 
@@ -22,7 +22,7 @@ function ContagemDoDiaScreen({
   onBack,
   onOpenInfo,
   onOpenCadastro,
-  onOpenHistorico,
+  onOpenSearch,
 }) {
   const [pendingChange, setPendingChange] = useState(null)
 
@@ -33,9 +33,9 @@ function ContagemDoDiaScreen({
           title="Contagem do Dia"
           subtitle="Vacinação"
           onBack={onBack}
-          rightIcon={<CalendarIcon size={20} />}
-          rightLabel="Histórico"
-          onRightAction={onOpenHistorico}
+          rightIcon={<SearchIcon size={20} />}
+          rightLabel="Buscar vacina"
+          onRightAction={onOpenSearch}
         />
         <div className="contagem-dia-empty">
           <span className="contagem-dia-empty-icon">
@@ -66,9 +66,9 @@ function ContagemDoDiaScreen({
         title="Contagem do Dia"
         subtitle="Vacinação"
         onBack={onBack}
-        rightIcon={<CalendarIcon size={20} />}
-        rightLabel="Histórico"
-        onRightAction={onOpenHistorico}
+        rightIcon={<SearchIcon size={20} />}
+        rightLabel="Buscar vacina"
+        onRightAction={onOpenSearch}
       />
 
       <VaccineCarousel vaccines={vaccines} activeIndex={activeIndex} onSelect={onSelect} onPrev={onPrev} onNext={onNext} />
