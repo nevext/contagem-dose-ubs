@@ -31,18 +31,6 @@
   margin-bottom: 8px;
 }
 
-.settings-about-icon {
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-  border-radius: var(--clay-radius-sm);
-  background: var(--clay-accent-soft);
-  color: var(--clay-accent-dark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .settings-about-texts {
   display: flex;
   flex-direction: column;

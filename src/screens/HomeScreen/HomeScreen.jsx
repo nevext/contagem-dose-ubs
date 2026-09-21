@@ -1,5 +1,6 @@
 import NavCard from '../../components/NavCard/NavCard'
-import { SyringeIcon, MonitorIcon, DocumentIcon, CalendarIcon, GearIcon, HealthMarkIcon } from '../../icons'
+import UsfMark from '../../components/UsfMark/UsfMark'
+import { SyringeIcon, MonitorIcon, DocumentIcon, CalendarIcon, GearIcon } from '../../icons'
 import './HomeScreen.css'
 
 // Menu principal da unidade. Vacinacao e a unica secao funcional por enquanto,
@@ -8,11 +9,9 @@ function HomeScreen({ onOpenVacinacao, onOpenSettings }) {
   return (
     <div className="home-screen screen-enter">
       <div className="home-topbar">
-        <span className="home-brand-mark">
-          <HealthMarkIcon size={22} />
-        </span>
+        <UsfMark size="sm" />
         <div className="home-brand-texts">
-          <strong>USF Tarumã</strong>
+          <strong>USF Silvio Santos</strong>
           <span>Unidade de Saúde da Família</span>
         </div>
         <button type="button" className="clay-icon-button clay-tap" onClick={onOpenSettings} aria-label="Definições">
@@ -21,9 +20,7 @@ function HomeScreen({ onOpenVacinacao, onOpenSettings }) {
       </div>
 
       <div className="home-hero">
-        <span className="home-hero-mark">
-          <HealthMarkIcon size={56} />
-        </span>
+        <UsfMark size="lg" />
         <h1>USF</h1>
         <p>Unidade de Saúde da Família</p>
       </div>

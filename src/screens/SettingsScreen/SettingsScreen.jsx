@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
-import { HealthMarkIcon, TrashIcon } from '../../icons'
+import UsfMark from '../../components/UsfMark/UsfMark'
+import { TrashIcon } from '../../icons'
 import './SettingsScreen.css'
 
 // Definicoes gerais do app (nao especificas de uma secao). As preferencias
@@ -23,13 +24,11 @@ function SettingsScreen({ onClearData, onBack }) {
       <div className="settings-body">
         <p className="settings-section-title">Sobre o app</p>
         <div className="settings-about-card">
-          <span className="settings-about-icon">
-            <HealthMarkIcon size={22} />
-          </span>
+          <UsfMark size="sm" />
           <div className="settings-about-texts">
             <strong>Contagem de Doses · USF</strong>
             <span>v1.0 · Protótipo de extensão universitária, CIESA</span>
-            <span>Projeto: David Neves de Figueiredo, Samia Albuquerque, Yara Vaz da Silva e Jhemerson Conde, em parceria com a USF Tarumã.</span>
+            <span>Projeto: David Neves de Figueiredo, Samia Albuquerque, Yara Vaz da Silva e Jhemerson Conde, em parceria com a USF Silvio Santos.</span>
           </div>
         </div>
 
