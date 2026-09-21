@@ -8,7 +8,7 @@ import HistoricoScreen from './screens/HistoricoScreen/HistoricoScreen'
 import VaccineInfoScreen from './screens/VaccineInfoScreen/VaccineInfoScreen'
 import VaccineFormScreen from './screens/VaccineFormScreen/VaccineFormScreen'
 import SettingsScreen from './screens/SettingsScreen/SettingsScreen'
-import { exportBackupJson } from './utils/exportData'
+import { exportBackupJson, exportHistoricoCsv } from './utils/exportData'
 import './App.css'
 
 const STORAGE_KEY = 'contagem-dose-ubs'
@@ -103,13 +103,23 @@ function App() {
   }
 
   const finalizeDay = (entries) => {
+    const newRecord = { id: crypto.randomUUID(), date: getToday(), entries }
+    const updatedHistory = [newRecord, ...history]
     setState((current) => ({
       ...current,
       vaccines: [],
-      history: [{ id: crypto.randomUUID(), date: getToday(), entries }, ...current.history],
+      history: updatedHistory,
     }))
+    exportHistoricoCsv(updatedHistory)
     setActiveIndex(0)
     setScreen('vacinacao')
+  }
+
+  const deleteHistoryRecord = (id) => {
+    setState((current) => ({
+      ...current,
+      history: current.history.filter((record) => record.id !== id),
+    }))
   }
 
   const clearAllData = () => {
@@ -201,7 +211,7 @@ function App() {
       <FinalizarDiaScreen vaccines={vaccines} onFinalize={finalizeDay} onBack={() => setScreen('vacinacao')} />
     )
   } else if (screen === 'historico') {
-    activeScreen = <HistoricoScreen history={history} onBack={() => setScreen('vacinacao')} />
+    activeScreen = <HistoricoScreen history={history} onDeleteRecord={deleteHistoryRecord} onBack={() => setScreen('vacinacao')} />
   } else if (screen === 'info') {
     const vaccine = vaccines.find((item) => item.id === infoVaccineId)
     activeScreen = vaccine ? <VaccineInfoScreen vaccine={vaccine} onBack={() => setScreen('contagem')} /> : renderVacinacao()

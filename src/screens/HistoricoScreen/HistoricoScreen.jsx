@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
-import { HistoryIcon, CheckIcon, AlertIcon, ChevronRightIcon, DownloadIcon } from '../../icons'
+import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
+import { HistoryIcon, CheckIcon, AlertIcon, ChevronRightIcon, DownloadIcon, TrashIcon } from '../../icons'
 import { exportHistoricoCsv } from '../../utils/exportData'
 import './HistoricoScreen.css'
 
@@ -10,10 +11,18 @@ function formatDate(isoDate) {
 
 // Lista os dias ja finalizados, do mais recente pro mais antigo. Clicar num
 // dia mostra o detalhe: doses aplicadas por vacina e o resultado da
-// comparacao daquele fechamento.
-function HistoricoScreen({ history, onBack }) {
+// comparacao daquele fechamento. De dentro do detalhe da pra excluir so
+// aquele dia, sem precisar apagar o historico inteiro.
+function HistoricoScreen({ history, onDeleteRecord, onBack }) {
   const [selectedId, setSelectedId] = useState(null)
+  const [confirmingDelete, setConfirmingDelete] = useState(false)
   const selected = history.find((record) => record.id === selectedId)
+
+  const handleDelete = () => {
+    onDeleteRecord(selected.id)
+    setConfirmingDelete(false)
+    setSelectedId(null)
+  }
 
   if (selected) {
     const divergent = selected.entries.filter((entry) => entry.diff !== 0)
@@ -52,7 +61,22 @@ function HistoricoScreen({ history, onBack }) {
               </li>
             ))}
           </ul>
+
+          <button type="button" className="historico-delete-button clay-tap" onClick={() => setConfirmingDelete(true)}>
+            <TrashIcon size={18} />
+            <span>Excluir este registro</span>
+          </button>
         </div>
+
+        <ConfirmDialog
+          open={confirmingDelete}
+          title="Excluir registro"
+          message={`Excluir o fechamento de ${formatDate(selected.date)}? Isso não apaga os outros dias, só esse. Não dá pra desfazer.`}
+          confirmLabel="Excluir"
+          danger
+          onConfirm={handleDelete}
+          onCancel={() => setConfirmingDelete(false)}
+        />
       </div>
     )
   }
