@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
 import { HealthMarkIcon, TrashIcon } from '../../icons'
+import { APP_VERSION } from '../../utils/version'
 import './SettingsScreen.css'
 
 // Definicoes gerais do app (nao especificas de uma secao). As preferencias
@@ -28,7 +29,7 @@ function SettingsScreen({ onClearData, onBack }) {
           </span>
           <div className="settings-about-texts">
             <strong>Contagem de Doses · USF</strong>
-            <span>v1.0 · Protótipo de extensão universitária, CIESA</span>
+            <span>v{APP_VERSION} · Protótipo de extensão universitária, CIESA</span>
             <span>Projeto: David Neves de Figueiredo, Samia Albuquerque, Yara Vaz da Silva e Jhemerson Conde, em parceria com a USF.</span>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import NavCard from '../../components/NavCard/NavCard'
 import { SyringeIcon, MonitorIcon, DocumentIcon, CalendarIcon, GearIcon, HealthMarkIcon } from '../../icons'
+import { APP_VERSION } from '../../utils/version'
 import './HomeScreen.css'
 
 // Menu principal da unidade. Vacinacao e a unica secao funcional por enquanto,
@@ -57,7 +58,7 @@ function HomeScreen({ onOpenVacinacao, onOpenSettings }) {
 
       <footer className="home-footer">
         <p>Cuidando da nossa comunidade com responsabilidade e eficiência.</p>
-        <span>v1.0</span>
+        <span>v{APP_VERSION}</span>
       </footer>
     </div>
   )
