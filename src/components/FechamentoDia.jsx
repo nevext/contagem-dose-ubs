@@ -9,20 +9,28 @@ function FechamentoDia({ vaccines, onCancel, onFinish }) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    setHasSubmitted(true)
-    if (allFilled) onFinish(Object.fromEntries(Object.entries(physicalStock).map(([id, value]) => [id, Number(value)])))
+    if (!allFilled) {
+      setHasSubmitted(true)
+      return
+    }
+
+    if (!hasSubmitted) {
+      setHasSubmitted(true)
+      return
+    }
+
+    onFinish(Object.fromEntries(Object.entries(physicalStock).map(([id, value]) => [id, Number(value)])))
   }
 
   return (
-    <div className="modal-backdrop" role="presentation">
-      <section className="closing-modal" role="dialog" aria-modal="true" aria-labelledby="closing-title">
+    <section className="closing-page" aria-labelledby="closing-title">
         <div className="modal-header">
           <div>
             <p className="section-kicker">02 · Conferência</p>
             <h2 id="closing-title">Fechar o dia</h2>
             <p className="muted-text">Conte as unidades que sobraram fisicamente no estoque.</p>
           </div>
-          <button type="button" className="close-button" onClick={onCancel} aria-label="Cancelar fechamento">×</button>
+          <button type="button" className="close-button" onClick={onCancel} aria-label="Voltar">×</button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="stock-fields">
@@ -38,13 +46,18 @@ function FechamentoDia({ vaccines, onCancel, onFinish }) {
             })}
           </div>
           {hasSubmitted && !allFilled && <p className="validation-message">Preencha a quantidade física de todas as vacinas.</p>}
+          {hasSubmitted && allFilled && (
+            <div className="comparison-summary" aria-live="polite">
+              <strong>Resultado da conferência</strong>
+              <span>Estoque esperado menos estoque físico contado</span>
+            </div>
+          )}
           <div className="modal-actions">
             <button type="button" className="secondary-button" onClick={onCancel}>Voltar</button>
-            <button type="submit" className="primary-button">Conferir estoque <span aria-hidden="true">→</span></button>
+            <button type="submit" className="primary-button">{hasSubmitted && allFilled ? 'Salvar fechamento' : 'Conferir estoque'}</button>
           </div>
         </form>
-      </section>
-    </div>
+    </section>
   )
 }
 
