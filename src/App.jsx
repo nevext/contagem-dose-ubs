@@ -124,6 +124,31 @@ function App() {
     }))
   }
 
+  // Mescla um backup importado no estado atual: vacinas e registros do
+  // historico com o mesmo id sao atualizados com o dado importado, o resto
+  // e adicionado. Nada do que ja existe e apagado.
+  const importBackup = ({ vaccines: importedVaccines, history: importedHistory }) => {
+    setState((current) => {
+      const vaccineMap = new Map(current.vaccines.map((vaccine) => [vaccine.id, vaccine]))
+      importedVaccines.forEach((vaccine) => {
+        if (!vaccine?.id) return
+        vaccineMap.set(vaccine.id, { ...vaccineMap.get(vaccine.id), ...vaccine })
+      })
+
+      const historyMap = new Map(current.history.map((record) => [record.id, record]))
+      importedHistory.forEach((record) => {
+        if (!record?.id) return
+        historyMap.set(record.id, { ...historyMap.get(record.id), ...record })
+      })
+
+      return {
+        ...current,
+        vaccines: Array.from(vaccineMap.values()),
+        history: Array.from(historyMap.values()).sort((a, b) => b.date.localeCompare(a.date)),
+      }
+    })
+  }
+
   const clearAllData = () => {
     setState(defaultState)
     setActiveIndex(0)
@@ -224,7 +249,12 @@ function App() {
     activeScreen = vaccine ? <VaccineInfoScreen vaccine={vaccine} onBack={() => setScreen('contagem')} /> : renderVacinacao()
   } else if (screen === 'settings') {
     activeScreen = (
-      <SettingsScreen onClearData={clearAllData} onExportBackup={() => exportBackupJson(state)} onBack={() => setScreen('home')} />
+      <SettingsScreen
+        onClearData={clearAllData}
+        onExportBackup={() => exportBackupJson(state)}
+        onImportBackup={importBackup}
+        onBack={() => setScreen('home')}
+      />
     )
   }
 

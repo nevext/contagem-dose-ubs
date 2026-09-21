@@ -114,3 +114,16 @@
   color: var(--clay-text-muted);
   line-height: 1.4;
 }
+
+.settings-import-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -4px 0 0;
+  padding: 12px 14px;
+  border-radius: var(--clay-radius-md);
+  background: var(--clay-danger-soft);
+  color: var(--clay-danger);
+  font-size: 13px;
+  font-weight: 600;
+}

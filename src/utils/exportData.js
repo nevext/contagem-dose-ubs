@@ -24,6 +24,27 @@ export function exportBackupJson(state) {
   downloadFile(content, `backup-contagem-doses-${todayStamp()}.json`, 'application/json')
 }
 
+// Le um arquivo de backup exportado (deste ou de outro aparelho) e devolve
+// vacinas e historico prontos pra mesclar no estado atual. Lanca erro se o
+// arquivo nao for um JSON valido ou nao tiver o formato esperado.
+export function parseBackupJson(text) {
+  let parsed
+  try {
+    parsed = JSON.parse(text)
+  } catch {
+    throw new Error('Esse arquivo não é um backup válido (JSON ilegível).')
+  }
+
+  const vaccines = Array.isArray(parsed?.vaccines) ? parsed.vaccines : Array.isArray(parsed) ? parsed : null
+  const history = Array.isArray(parsed?.history) ? parsed.history : []
+
+  if (!vaccines) {
+    throw new Error('Esse arquivo não parece ser um backup desse app.')
+  }
+
+  return { vaccines, history }
+}
+
 function csvCell(value) {
   const text = String(value)
   return /[;"\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text
