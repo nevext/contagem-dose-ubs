@@ -3,50 +3,47 @@
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  padding: 8px 0 0;
+  padding: 8px 12px 0;
 }
 
-.vaccine-carousel-viewport {
+.vaccine-carousel-track {
   width: 100%;
   display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vaccine-carousel-arrow {
+  flex-shrink: 0;
+}
+
+.vaccine-carousel-tiles {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
-  padding: 8px calc(50% - 52px) 12px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  cursor: grab;
-}
-
-.vaccine-carousel-viewport:active {
-  cursor: grabbing;
-}
-
-.vaccine-carousel-viewport::-webkit-scrollbar {
-  display: none;
 }
 
 .vaccine-tile {
-  flex-shrink: 0;
-  width: 104px;
-  scroll-snap-align: center;
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  padding: 16px 6px;
+  padding: 16px 8px;
   border: none;
   border-radius: var(--clay-radius-lg);
   background: var(--clay-surface);
   box-shadow: var(--clay-raised);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
   font-family: inherit;
 }
 
 .vaccine-tile strong {
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--clay-text-heading);
   display: -webkit-box;
@@ -79,7 +76,7 @@
 }
 
 .vaccine-tile-active {
-  transform: scale(1.1);
+  transform: scale(1.12);
   box-shadow: var(--clay-raised-strong);
   z-index: 1;
 }

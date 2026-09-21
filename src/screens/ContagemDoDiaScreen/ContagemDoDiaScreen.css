@@ -92,31 +92,35 @@
   color: var(--clay-text-heading);
 }
 
-.vaccine-detail-footer-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+.vaccine-detail-last-update {
+  margin: -8px 0 0;
+  font-size: 12px;
+  color: var(--clay-text-muted);
+  text-align: center;
 }
 
-.vaccine-detail-footer-grid > div {
+.vaccine-detail-stock-row {
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--clay-radius-md);
+  background: var(--clay-surface-strong);
   color: var(--clay-accent-dark);
 }
 
-.vaccine-detail-footer-grid > div > div {
+.vaccine-detail-stock-row > div {
   display: flex;
   flex-direction: column;
   gap: 1px;
 }
 
-.vaccine-detail-footer-grid span {
+.vaccine-detail-stock-row span {
   font-size: 12px;
   color: var(--clay-text-muted);
 }
 
-.vaccine-detail-footer-grid strong {
+.vaccine-detail-stock-row strong {
   font-size: 14px;
   font-weight: 700;
   color: var(--clay-text-heading);

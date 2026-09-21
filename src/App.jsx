@@ -8,7 +8,6 @@ import HistoricoScreen from './screens/HistoricoScreen/HistoricoScreen'
 import VaccineInfoScreen from './screens/VaccineInfoScreen/VaccineInfoScreen'
 import VaccineFormScreen from './screens/VaccineFormScreen/VaccineFormScreen'
 import SettingsScreen from './screens/SettingsScreen/SettingsScreen'
-import VacinacaoSettingsScreen from './screens/VacinacaoSettingsScreen/VacinacaoSettingsScreen'
 import './App.css'
 
 const STORAGE_KEY = 'contagem-dose-ubs'
@@ -16,7 +15,6 @@ const STORAGE_KEY = 'contagem-dose-ubs'
 const defaultState = {
   vaccines: [],
   history: [],
-  selectionMode: 'deslizar',
 }
 
 function loadState() {
@@ -44,7 +42,7 @@ function App() {
   const [infoVaccineId, setInfoVaccineId] = useState(null)
   const [editingVaccineId, setEditingVaccineId] = useState(null)
 
-  const { vaccines, history, selectionMode } = state
+  const { vaccines, history } = state
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
@@ -97,9 +95,7 @@ function App() {
       vaccines: current.vaccines.map((vaccine) => {
         if (vaccine.id !== id) return vaccine
         const nextValue = Math.min(vaccine.initialStock, Math.max(0, vaccine.appliedToday + delta))
-        const lastUsedAt = delta > 0
-          ? new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit' }).format(new Date())
-          : vaccine.lastUsedAt
+        const lastUsedAt = new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit' }).format(new Date())
         return { ...vaccine, appliedToday: nextValue, lastUsedAt }
       }),
     }))
@@ -113,10 +109,6 @@ function App() {
     }))
     setActiveIndex(0)
     setScreen('vacinacao')
-  }
-
-  const setSelectionMode = (mode) => {
-    setState((current) => ({ ...current, selectionMode: mode }))
   }
 
   const clearAllData = () => {
@@ -155,9 +147,18 @@ function App() {
       onOpenCadastro={() => setScreen('cadastro')}
       onOpenFinalizar={() => setScreen('finalizar')}
       onOpenHistorico={() => setScreen('historico')}
-      onOpenSettings={() => setScreen('vacinacaoSettings')}
     />
   )
+
+  const total = vaccines.length
+  const goPrevVaccine = () => {
+    if (total === 0) return
+    setActiveIndex((safeActiveIndex - 1 + total) % total)
+  }
+  const goNextVaccine = () => {
+    if (total === 0) return
+    setActiveIndex((safeActiveIndex + 1) % total)
+  }
 
   let activeScreen = (
     <HomeScreen onOpenVacinacao={() => setScreen('vacinacao')} onOpenSettings={() => setScreen('settings')} />
@@ -171,10 +172,11 @@ function App() {
         vaccines={vaccines}
         activeIndex={safeActiveIndex}
         onSelect={setActiveIndex}
+        onPrev={goPrevVaccine}
+        onNext={goNextVaccine}
         onIncrement={(id) => changeDoses(id, 1)}
         onDecrement={(id) => changeDoses(id, -1)}
         onBack={() => setScreen('vacinacao')}
-        selectionMode={selectionMode}
         onOpenInfo={openInfo}
         onOpenCadastro={() => setScreen('cadastro')}
         onOpenHistorico={() => setScreen('historico')}
@@ -204,14 +206,6 @@ function App() {
     activeScreen = vaccine ? <VaccineInfoScreen vaccine={vaccine} onBack={() => setScreen('contagem')} /> : renderVacinacao()
   } else if (screen === 'settings') {
     activeScreen = <SettingsScreen onClearData={clearAllData} onBack={() => setScreen('home')} />
-  } else if (screen === 'vacinacaoSettings') {
-    activeScreen = (
-      <VacinacaoSettingsScreen
-        selectionMode={selectionMode}
-        onChangeSelectionMode={setSelectionMode}
-        onBack={() => setScreen('vacinacao')}
-      />
-    )
   }
 
   return <div className="app-shell">{activeScreen}</div>

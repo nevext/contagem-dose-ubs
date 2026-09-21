@@ -1,24 +1,31 @@
+import { useState } from 'react'
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import VaccineCarousel from '../../components/VaccineCarousel/VaccineCarousel'
 import CounterControl from '../../components/CounterControl/CounterControl'
-import { SyringeIcon, CalendarIcon, BoxIcon, ClockIcon, InfoIcon, ChevronRightIcon } from '../../icons'
+import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
+import { SyringeIcon, CalendarIcon, BoxIcon, InfoIcon, ChevronRightIcon } from '../../icons'
 import { formatDateBR } from '../../utils/date'
 import './ContagemDoDiaScreen.css'
 
 // Tela de uso continuo ao longo do expediente: escolhe a vacina no carrossel
 // e usa o +/- para registrar doses aplicadas, com estoque calculado ao vivo.
+// Cada clique no +/- pede confirmacao antes de valer, pra evitar toque errado
+// bagunçando a contagem do dia.
 function ContagemDoDiaScreen({
   vaccines,
   activeIndex,
   onSelect,
+  onPrev,
+  onNext,
   onIncrement,
   onDecrement,
   onBack,
-  selectionMode,
   onOpenInfo,
   onOpenCadastro,
   onOpenHistorico,
 }) {
+  const [pendingChange, setPendingChange] = useState(null)
+
   if (vaccines.length === 0) {
     return (
       <div className="contagem-dia-screen screen-enter">
@@ -47,6 +54,12 @@ function ContagemDoDiaScreen({
   const active = vaccines[activeIndex]
   const availableStock = active.initialStock - active.appliedToday
 
+  const confirmChange = () => {
+    if (pendingChange === 'increment') onIncrement(active.id)
+    else if (pendingChange === 'decrement') onDecrement(active.id)
+    setPendingChange(null)
+  }
+
   return (
     <div className="contagem-dia-screen screen-enter">
       <ScreenHeader
@@ -58,13 +71,7 @@ function ContagemDoDiaScreen({
         onRightAction={onOpenHistorico}
       />
 
-      <VaccineCarousel
-        vaccines={vaccines}
-        activeIndex={activeIndex}
-        onSelect={onSelect}
-        selectionMode={selectionMode}
-        onOpenInfo={onOpenInfo}
-      />
+      <VaccineCarousel vaccines={vaccines} activeIndex={activeIndex} onSelect={onSelect} onPrev={onPrev} onNext={onNext} />
 
       <section className="vaccine-detail-card pop-in" key={active.id}>
         <div className="vaccine-detail-head">
@@ -97,24 +104,17 @@ function ContagemDoDiaScreen({
 
         <CounterControl
           value={active.appliedToday}
-          onIncrement={() => onIncrement(active.id)}
-          onDecrement={() => onDecrement(active.id)}
+          onIncrement={() => setPendingChange('increment')}
+          onDecrement={() => setPendingChange('decrement')}
         />
 
-        <div className="vaccine-detail-footer-grid">
+        <p className="vaccine-detail-last-update">Última atualização: {active.lastUsedAt ?? '--:--'}</p>
+
+        <div className="vaccine-detail-stock-row">
+          <BoxIcon size={20} />
           <div>
-            <BoxIcon size={20} />
-            <div>
-              <span>Estoque disponível</span>
-              <strong>{availableStock} doses</strong>
-            </div>
-          </div>
-          <div>
-            <ClockIcon size={20} />
-            <div>
-              <span>Última utilização</span>
-              <strong>{active.lastUsedAt ?? '--:--'}</strong>
-            </div>
+            <span>Estoque disponível</span>
+            <strong>{availableStock} doses</strong>
           </div>
         </div>
 
@@ -129,6 +129,19 @@ function ContagemDoDiaScreen({
         <strong>USF</strong>
         <span>Unidade de Saúde da Família</span>
       </footer>
+
+      <ConfirmDialog
+        open={pendingChange !== null}
+        title="Tem certeza?"
+        message={
+          pendingChange === 'increment'
+            ? `Confirmar +1 dose aplicada de ${active.name}?`
+            : `Confirmar -1 dose de ${active.name}? Isso corrige a contagem de hoje.`
+        }
+        confirmLabel="Confirmar"
+        onConfirm={confirmChange}
+        onCancel={() => setPendingChange(null)}
+      />
     </div>
   )
 }
