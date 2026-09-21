@@ -190,8 +190,9 @@ export function MinusIcon({ size = 24, className }) {
 
 export function HealthMarkIcon({ size = 24, className }) {
   return (
-    <svg {...base(size)} className={className} strokeWidth={2.2}>
-      <path d="M12 6v12M6 12h12" />
+    <svg {...base(size)} className={className}>
+      <path d="M12 20.3l-1.2-1.1C6.4 15.4 3.5 12.8 3.5 9.5 3.5 6.8 5.6 4.7 8.3 4.7c1.5 0 2.9.7 3.7 1.8.8-1.1 2.2-1.8 3.7-1.8 2.7 0 4.8 2.1 4.8 4.8 0 3.3-2.9 5.9-7.3 9.7L12 20.3z" />
+      <path d="M5.2 11h2.6l1.4-2.6 1.8 5.2 1.3-2.6h3.8" />
     </svg>
   )
 }
