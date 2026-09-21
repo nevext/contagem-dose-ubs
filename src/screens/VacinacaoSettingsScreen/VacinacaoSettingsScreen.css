@@ -1,0 +1,87 @@
+.vac-settings-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding-bottom: 24px;
+}
+
+.vac-settings-body {
+  padding: 12px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vac-settings-section-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--clay-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.vac-settings-options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.vac-settings-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border: none;
+  border-radius: var(--clay-radius-lg);
+  background: var(--clay-surface);
+  box-shadow: var(--clay-raised);
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.vac-settings-option:active {
+  transform: scale(0.99);
+}
+
+.vac-settings-option-texts {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vac-settings-option-texts strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--clay-text-heading);
+}
+
+.vac-settings-option-texts span {
+  font-size: 13px;
+  color: var(--clay-text-muted);
+  line-height: 1.4;
+}
+
+.vac-settings-option-check {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--clay-accent-soft);
+  color: var(--clay-accent-dark);
+}
+
+.vac-settings-option-selected {
+  box-shadow: var(--clay-raised-strong);
+}
+
+.vac-settings-option-selected .vac-settings-option-check {
+  background: var(--clay-accent);
+  color: var(--clay-text-on-accent);
+}

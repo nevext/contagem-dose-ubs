@@ -3,45 +3,40 @@
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  padding: 8px 12px 0;
+  padding: 8px 0 0;
 }
 
-.vaccine-carousel-track {
+.vaccine-carousel-viewport {
+  position: relative;
   width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.vaccine-carousel-arrow {
-  flex-shrink: 0;
-}
-
-.vaccine-carousel-tiles {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  height: 128px;
+  overflow: hidden;
   touch-action: pan-y;
-  transition: transform 0.2s ease;
   user-select: none;
 }
 
+.vaccine-carousel-track {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  display: flex;
+  gap: 10px;
+  will-change: transform;
+}
+
 .vaccine-tile {
-  flex: 1;
-  min-width: 0;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  padding: 16px 8px;
+  padding: 16px 6px;
   border: none;
   border-radius: var(--clay-radius-lg);
   background: var(--clay-surface);
   box-shadow: var(--clay-raised);
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   font-family: inherit;
 }
 
@@ -55,6 +50,7 @@
   overflow: hidden;
   max-width: 100%;
   line-height: 1.2;
+  text-align: center;
 }
 
 .vaccine-tile span {
@@ -78,7 +74,6 @@
 }
 
 .vaccine-tile-active {
-  flex: 1.25;
   transform: scale(1.1);
   box-shadow: var(--clay-raised-strong);
   z-index: 1;
@@ -102,6 +97,7 @@
   height: 7px;
   border-radius: 50%;
   background: var(--clay-divider);
+  transition: width 0.2s ease, background 0.2s ease;
 }
 
 .vaccine-dot-active {

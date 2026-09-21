@@ -21,17 +21,51 @@
   letter-spacing: 0.04em;
 }
 
-.settings-options {
+.settings-about-card {
   display: flex;
-  flex-direction: column;
   gap: 14px;
+  padding: 18px;
+  border-radius: var(--clay-radius-lg);
+  background: var(--clay-surface);
+  box-shadow: var(--clay-raised);
+  margin-bottom: 8px;
 }
 
-.settings-option {
+.settings-about-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: var(--clay-radius-sm);
+  background: var(--clay-accent-soft);
+  color: var(--clay-accent-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-about-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.settings-about-texts strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--clay-text-heading);
+}
+
+.settings-about-texts span {
+  font-size: 12.5px;
+  color: var(--clay-text-muted);
+  line-height: 1.4;
+}
+
+.settings-danger-option {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 18px;
+  padding: 16px 18px;
   border: none;
   border-radius: var(--clay-radius-lg);
   background: var(--clay-surface);
@@ -39,49 +73,34 @@
   text-align: left;
   cursor: pointer;
   font-family: inherit;
-  transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
 
-.settings-option:active {
-  transform: scale(0.99);
+.settings-danger-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--clay-radius-sm);
+  background: var(--clay-danger-soft);
+  color: var(--clay-danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .settings-option-texts {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .settings-option-texts strong {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--clay-text-heading);
 }
 
 .settings-option-texts span {
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--clay-text-muted);
   line-height: 1.4;
-}
-
-.settings-option-check {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--clay-accent-soft);
-  color: var(--clay-accent-dark);
-}
-
-.settings-option-selected {
-  box-shadow: var(--clay-raised-strong);
-}
-
-.settings-option-selected .settings-option-check {
-  background: var(--clay-accent);
-  color: var(--clay-text-on-accent);
 }

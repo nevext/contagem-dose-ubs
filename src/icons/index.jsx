@@ -62,9 +62,9 @@ export function PersonIcon({ size = 24, className }) {
 
 export function GearIcon({ size = 24, className }) {
   return (
-    <svg {...base(size)} className={className}>
+    <svg {...base(size)} className={className} strokeLinejoin="round">
+      <path d="M19.85 15.25 15.25 19.85 8.75 19.85 4.15 15.25 4.15 8.75 8.75 4.15 15.25 4.15 19.85 8.75Z" />
       <circle cx="12" cy="12" r="3.2" />
-      <path d="M12 3.5v2.4M12 18.1v2.4M20.5 12h-2.4M5.9 12H3.5M17.7 6.3l-1.7 1.7M8 16l-1.7 1.7M17.7 17.7L16 16M8 8L6.3 6.3" />
     </svg>
   )
 }

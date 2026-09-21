@@ -10,8 +10,6 @@ function ContagemDoDiaScreen({
   vaccines,
   activeIndex,
   onSelect,
-  onPrev,
-  onNext,
   onIncrement,
   onDecrement,
   onBack,
@@ -53,8 +51,6 @@ function ContagemDoDiaScreen({
         vaccines={vaccines}
         activeIndex={activeIndex}
         onSelect={onSelect}
-        onPrev={onPrev}
-        onNext={onNext}
         selectionMode={selectionMode}
         onOpenInfo={onOpenInfo}
       />

@@ -30,7 +30,6 @@ function HomeScreen({ onOpenVacinacao, onOpenSettings }) {
 
       <nav className="home-nav-list">
         <NavCard
-          variant="featured"
           icon={<SyringeIcon size={24} />}
           title="Vacinação"
           subtitle="Registro e acompanhamento"

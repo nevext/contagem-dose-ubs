@@ -1,51 +1,53 @@
 import { useRef, useState } from 'react'
-import { SyringeIcon, ChevronLeftIcon, ChevronRightIcon } from '../../icons'
+import { SyringeIcon } from '../../icons'
 import './VaccineCarousel.css'
 
-const DRAG_THRESHOLD = 45
+const TILE_WIDTH = 104
+const TILE_GAP = 10
+const TILE_STEP = TILE_WIDTH + TILE_GAP
 const TAP_TOLERANCE = 8
+const EDGE_RESISTANCE = 0.35
 
-// Carrossel horizontal de vacinas cadastradas. No modo "deslizar" (padrao) a
-// pessoa arrasta com o dedo pros lados pra trocar a vacina ativa; tocar num
-// card so centraliza ele. No modo "selecionar" nao tem arrasto, tocar num
-// card ja abre as informacoes daquela vacina direto.
-function VaccineCarousel({ vaccines, activeIndex, onSelect, onPrev, onNext, selectionMode, onOpenInfo }) {
+// Roda de selecao de verdade: uma faixa continua com todas as vacinas,
+// que segue o dedo 1:1 enquanto arrasta e encaixa na vacina mais proxima
+// do centro ao soltar. Funciona nos dois modos de selecao; o que muda
+// entre "deslizar" e "selecionar" e so o que um toque simples faz.
+function VaccineCarousel({ vaccines, activeIndex, onSelect, selectionMode, onOpenInfo }) {
   const total = vaccines.length
-  const prevIndex = (activeIndex - 1 + total) % total
-  const nextIndex = (activeIndex + 1) % total
-  const visible = total <= 3
-    ? vaccines.map((vaccine, index) => ({ vaccine, index }))
-    : [
-        { vaccine: vaccines[prevIndex], index: prevIndex },
-        { vaccine: vaccines[activeIndex], index: activeIndex },
-        { vaccine: vaccines[nextIndex], index: nextIndex },
-      ]
+  const [dragDelta, setDragDelta] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const dragState = useRef({ startX: 0, moved: false })
 
-  const [dragX, setDragX] = useState(0)
-  const dragState = useRef({ startX: 0, active: false, moved: false })
+  const atStart = activeIndex === 0
+  const atEnd = activeIndex === total - 1
+  let effectiveDrag = dragDelta
+  if (atStart && dragDelta > 0) effectiveDrag = dragDelta * EDGE_RESISTANCE
+  if (atEnd && dragDelta < 0) effectiveDrag = dragDelta * EDGE_RESISTANCE
 
-  const isDraggable = selectionMode === 'deslizar'
+  const baseOffset = activeIndex * TILE_STEP + TILE_WIDTH / 2
+  const translateX = -baseOffset + effectiveDrag
 
   const handlePointerDown = (event) => {
-    if (!isDraggable) return
-    dragState.current = { startX: event.clientX, active: true, moved: false }
+    if (total === 0) return
+    dragState.current = { startX: event.clientX, moved: false }
+    setIsDragging(true)
     event.currentTarget.setPointerCapture?.(event.pointerId)
   }
 
   const handlePointerMove = (event) => {
-    if (!isDraggable || !dragState.current.active) return
+    if (!isDragging) return
     const delta = event.clientX - dragState.current.startX
     if (Math.abs(delta) > TAP_TOLERANCE) dragState.current.moved = true
-    setDragX(delta)
+    setDragDelta(delta)
   }
 
-  const handlePointerUp = () => {
-    if (!isDraggable || !dragState.current.active) return
-    const delta = dragX
-    dragState.current.active = false
-    setDragX(0)
-    if (delta > DRAG_THRESHOLD) onPrev()
-    else if (delta < -DRAG_THRESHOLD) onNext()
+  const finishDrag = () => {
+    if (!isDragging) return
+    const stepsMoved = Math.round(dragDelta / TILE_STEP)
+    const newIndex = Math.min(total - 1, Math.max(0, activeIndex - stepsMoved))
+    setIsDragging(false)
+    setDragDelta(0)
+    if (newIndex !== activeIndex) onSelect(newIndex)
   }
 
   const handleTileClick = (vaccine, index) => {
@@ -59,24 +61,26 @@ function VaccineCarousel({ vaccines, activeIndex, onSelect, onPrev, onNext, sele
 
   return (
     <div className="vaccine-carousel">
-      <div className="vaccine-carousel-track">
-        <button type="button" className="clay-icon-button clay-tap vaccine-carousel-arrow" onClick={onPrev} aria-label="Vacina anterior">
-          <ChevronLeftIcon size={20} />
-        </button>
-
+      <div
+        className="vaccine-carousel-viewport"
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={finishDrag}
+        onPointerLeave={finishDrag}
+      >
         <div
-          className="vaccine-carousel-tiles"
-          style={{ transform: dragX ? `translateX(${dragX * 0.4}px)` : undefined }}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerLeave={handlePointerUp}
+          className="vaccine-carousel-track"
+          style={{
+            transform: `translateX(${translateX}px)`,
+            transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
         >
-          {visible.map(({ vaccine, index }) => (
+          {vaccines.map((vaccine, index) => (
             <button
               type="button"
               key={vaccine.id}
               className={`vaccine-tile clay-tap ${index === activeIndex ? 'vaccine-tile-active' : ''}`}
+              style={{ width: TILE_WIDTH }}
               onClick={() => handleTileClick(vaccine, index)}
             >
               <span className="vaccine-tile-icon">
@@ -87,10 +91,6 @@ function VaccineCarousel({ vaccines, activeIndex, onSelect, onPrev, onNext, sele
             </button>
           ))}
         </div>
-
-        <button type="button" className="clay-icon-button clay-tap vaccine-carousel-arrow" onClick={onNext} aria-label="Próxima vacina">
-          <ChevronRightIcon size={20} />
-        </button>
       </div>
 
       <div className="vaccine-carousel-dots">

@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
+import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
 import { SyringeIcon, EditIcon, TrashIcon } from '../../icons'
 import './CadastroVacinasScreen.css'
 
@@ -10,6 +11,8 @@ const emptyForm = { name: '', initialStock: '' }
 function CadastroVacinasScreen({ vaccines, onAdd, onUpdate, onRemove, onBack }) {
   const [form, setForm] = useState(emptyForm)
   const [editingId, setEditingId] = useState(null)
+  const [vaccineToRemove, setVaccineToRemove] = useState(null)
+  const formRef = useRef(null)
 
   const isEditing = editingId !== null
 
@@ -31,6 +34,7 @@ function CadastroVacinasScreen({ vaccines, onAdd, onUpdate, onRemove, onBack }) 
   const startEdit = (vaccine) => {
     setEditingId(vaccine.id)
     setForm({ name: vaccine.name, initialStock: String(vaccine.initialStock) })
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   const cancelEdit = () => {
@@ -38,11 +42,10 @@ function CadastroVacinasScreen({ vaccines, onAdd, onUpdate, onRemove, onBack }) 
     setForm(emptyForm)
   }
 
-  const handleRemove = (vaccine) => {
-    if (window.confirm(`Remover "${vaccine.name}" da contagem de hoje?`)) {
-      if (editingId === vaccine.id) cancelEdit()
-      onRemove(vaccine.id)
-    }
+  const confirmRemove = () => {
+    if (editingId === vaccineToRemove.id) cancelEdit()
+    onRemove(vaccineToRemove.id)
+    setVaccineToRemove(null)
   }
 
   return (
@@ -50,7 +53,7 @@ function CadastroVacinasScreen({ vaccines, onAdd, onUpdate, onRemove, onBack }) 
       <ScreenHeader title="Cadastro de Vacinas" subtitle="Vacinação" onBack={onBack} />
 
       <div className="cadastro-body">
-        <form className="cadastro-form" onSubmit={handleSubmit}>
+        <form className="cadastro-form" ref={formRef} onSubmit={handleSubmit}>
           <label className="cadastro-field">
             <span>Nome da vacina</span>
             <input
@@ -84,7 +87,7 @@ function CadastroVacinasScreen({ vaccines, onAdd, onUpdate, onRemove, onBack }) 
           </div>
         </form>
 
-        <p className="cadastro-list-title">Vacinas de hoje</p>
+        <p className="cadastro-list-title">Vacinas cadastradas</p>
 
         {vaccines.length === 0 ? (
           <p className="cadastro-empty">Nenhuma vacina cadastrada ainda.</p>
@@ -102,7 +105,7 @@ function CadastroVacinasScreen({ vaccines, onAdd, onUpdate, onRemove, onBack }) 
                 <button type="button" className="clay-icon-button clay-tap" onClick={() => startEdit(vaccine)} aria-label={`Editar ${vaccine.name}`}>
                   <EditIcon size={18} />
                 </button>
-                <button type="button" className="clay-icon-button clay-tap" onClick={() => handleRemove(vaccine)} aria-label={`Remover ${vaccine.name}`}>
+                <button type="button" className="clay-icon-button clay-tap" onClick={() => setVaccineToRemove(vaccine)} aria-label={`Remover ${vaccine.name}`}>
                   <TrashIcon size={18} />
                 </button>
               </li>
@@ -110,6 +113,16 @@ function CadastroVacinasScreen({ vaccines, onAdd, onUpdate, onRemove, onBack }) 
           </ul>
         )}
       </div>
+
+      <ConfirmDialog
+        open={vaccineToRemove !== null}
+        title="Remover vacina"
+        message={vaccineToRemove ? `Remover "${vaccineToRemove.name}" da contagem de hoje? Isso apaga as doses já aplicadas dela hoje.` : ''}
+        confirmLabel="Remover"
+        danger
+        onConfirm={confirmRemove}
+        onCancel={() => setVaccineToRemove(null)}
+      />
     </div>
   )
 }

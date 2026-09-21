@@ -1,50 +1,59 @@
+import { useState } from 'react'
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
-import { CheckIcon } from '../../icons'
+import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
+import { HealthMarkIcon, TrashIcon } from '../../icons'
 import './SettingsScreen.css'
 
-const OPTIONS = [
-  {
-    value: 'deslizar',
-    title: 'Deslizar',
-    description: 'Arraste com o dedo pros lados pra trocar a vacina ativa no carrossel.',
-  },
-  {
-    value: 'selecionar',
-    title: 'Selecionar',
-    description: 'Toque numa vacina do carrossel pra abrir as informações dela direto.',
-  },
-]
+// Definicoes gerais do app (nao especificas de uma secao). As preferencias
+// da roda de vacinas moraram pro menu "..." dentro de Vacinacao; aqui fica o
+// que e sobre o app como um todo. Espaco livre pra crescer conforme as
+// outras secoes (Manutencao, Organizacao, Agenda) forem ganhando telas.
+function SettingsScreen({ onClearData, onBack }) {
+  const [confirmingClear, setConfirmingClear] = useState(false)
 
-// Tela de definicoes do app. Por enquanto so tem a preferencia de como
-// escolher a vacina ativa no carrossel da Contagem do Dia.
-function SettingsScreen({ selectionMode, onChangeSelectionMode, onBack }) {
+  const handleClear = () => {
+    onClearData()
+    setConfirmingClear(false)
+  }
+
   return (
     <div className="settings-screen screen-enter">
       <ScreenHeader title="Definições" onBack={onBack} />
 
       <div className="settings-body">
-        <p className="settings-section-title">Seleção de vacinas no carrossel</p>
-
-        <div className="settings-options">
-          {OPTIONS.map((option) => {
-            const selected = option.value === selectionMode
-            return (
-              <button
-                type="button"
-                key={option.value}
-                className={`settings-option clay-tap ${selected ? 'settings-option-selected' : ''}`}
-                onClick={() => onChangeSelectionMode(option.value)}
-              >
-                <div className="settings-option-texts">
-                  <strong>{option.title}</strong>
-                  <span>{option.description}</span>
-                </div>
-                <span className="settings-option-check">{selected && <CheckIcon size={18} />}</span>
-              </button>
-            )
-          })}
+        <p className="settings-section-title">Sobre o app</p>
+        <div className="settings-about-card">
+          <span className="settings-about-icon">
+            <HealthMarkIcon size={22} />
+          </span>
+          <div className="settings-about-texts">
+            <strong>Contagem de Doses · USF</strong>
+            <span>v1.0 · Protótipo de extensão universitária, CIESA</span>
+            <span>Projeto: David Neves de Figueiredo, Samia Albuquerque, Yara Vaz da Silva e Jhemerson Conde, em parceria com a USF Tarumã.</span>
+          </div>
         </div>
+
+        <p className="settings-section-title">Dados locais</p>
+        <button type="button" className="settings-danger-option clay-tap" onClick={() => setConfirmingClear(true)}>
+          <span className="settings-danger-icon">
+            <TrashIcon size={18} />
+          </span>
+          <div className="settings-option-texts">
+            <strong>Limpar todos os dados</strong>
+            <span>Apaga vacinas cadastradas, contagem do dia e histórico deste aparelho.</span>
+          </div>
+        </button>
       </div>
+
+      <ConfirmDialog
+        open={confirmingClear}
+        title="Limpar todos os dados"
+        message="Isso apaga as vacinas cadastradas, a contagem do dia e todo o histórico salvo neste aparelho. Não dá pra desfazer."
+        confirmLabel="Limpar tudo"
+        danger
+        onConfirm={handleClear}
+        onCancel={() => setConfirmingClear(false)}
+      />
     </div>
   )
 }
