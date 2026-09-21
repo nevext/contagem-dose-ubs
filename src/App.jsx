@@ -6,6 +6,7 @@ import CadastroVacinasScreen from './screens/CadastroVacinasScreen/CadastroVacin
 import FinalizarDiaScreen from './screens/FinalizarDiaScreen/FinalizarDiaScreen'
 import HistoricoScreen from './screens/HistoricoScreen/HistoricoScreen'
 import VaccineInfoScreen from './screens/VaccineInfoScreen/VaccineInfoScreen'
+import VaccineFormScreen from './screens/VaccineFormScreen/VaccineFormScreen'
 import SettingsScreen from './screens/SettingsScreen/SettingsScreen'
 import VacinacaoSettingsScreen from './screens/VacinacaoSettingsScreen/VacinacaoSettingsScreen'
 import './App.css'
@@ -41,6 +42,7 @@ function App() {
   const [state, setState] = useState(loadState)
   const [activeIndex, setActiveIndex] = useState(0)
   const [infoVaccineId, setInfoVaccineId] = useState(null)
+  const [editingVaccineId, setEditingVaccineId] = useState(null)
 
   const { vaccines, history, selectionMode } = state
 
@@ -53,7 +55,7 @@ function App() {
   const totalAppliedToday = vaccines.reduce((sum, vaccine) => sum + vaccine.appliedToday, 0)
   const formattedDate = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(new Date())
 
-  const addVaccine = ({ name, initialStock }) => {
+  const addVaccine = ({ name, initialStock, dosePadrao, lote, validade }) => {
     setState((current) => ({
       ...current,
       vaccines: [
@@ -62,9 +64,9 @@ function App() {
           id: crypto.randomUUID(),
           name,
           subtitle: name,
-          dosePadrao: '1 dose',
-          lote: '—',
-          validade: '—',
+          dosePadrao,
+          lote,
+          validade,
           initialStock,
           appliedToday: 0,
           lastUsedAt: null,
@@ -73,11 +75,11 @@ function App() {
     }))
   }
 
-  const updateVaccine = (id, { name, initialStock }) => {
+  const updateVaccine = (id, { name, initialStock, dosePadrao, lote, validade }) => {
     setState((current) => ({
       ...current,
       vaccines: current.vaccines.map((vaccine) =>
-        vaccine.id === id ? { ...vaccine, name, subtitle: name, initialStock } : vaccine,
+        vaccine.id === id ? { ...vaccine, name, subtitle: name, initialStock, dosePadrao, lote, validade } : vaccine,
       ),
     }))
   }
@@ -128,6 +130,22 @@ function App() {
     setScreen('info')
   }
 
+  const openNewVaccineForm = () => {
+    setEditingVaccineId(null)
+    setScreen('vaccineForm')
+  }
+
+  const openEditVaccineForm = (id) => {
+    setEditingVaccineId(id)
+    setScreen('vaccineForm')
+  }
+
+  const saveVaccineForm = (payload) => {
+    if (editingVaccineId) updateVaccine(editingVaccineId, payload)
+    else addVaccine(payload)
+    setScreen('cadastro')
+  }
+
   const renderVacinacao = () => (
     <VacinacaoScreen
       totalAppliedToday={totalAppliedToday}
@@ -159,18 +177,22 @@ function App() {
         selectionMode={selectionMode}
         onOpenInfo={openInfo}
         onOpenCadastro={() => setScreen('cadastro')}
+        onOpenHistorico={() => setScreen('historico')}
       />
     )
   } else if (screen === 'cadastro') {
     activeScreen = (
       <CadastroVacinasScreen
         vaccines={vaccines}
-        onAdd={addVaccine}
-        onUpdate={updateVaccine}
         onRemove={removeVaccine}
+        onOpenNew={openNewVaccineForm}
+        onOpenEdit={openEditVaccineForm}
         onBack={() => setScreen('vacinacao')}
       />
     )
+  } else if (screen === 'vaccineForm') {
+    const vaccine = editingVaccineId ? vaccines.find((item) => item.id === editingVaccineId) : null
+    activeScreen = <VaccineFormScreen vaccine={vaccine} onSave={saveVaccineForm} onBack={() => setScreen('cadastro')} />
   } else if (screen === 'finalizar') {
     activeScreen = (
       <FinalizarDiaScreen vaccines={vaccines} onFinalize={finalizeDay} onBack={() => setScreen('vacinacao')} />

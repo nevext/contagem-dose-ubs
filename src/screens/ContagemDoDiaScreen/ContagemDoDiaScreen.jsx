@@ -2,6 +2,7 @@ import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import VaccineCarousel from '../../components/VaccineCarousel/VaccineCarousel'
 import CounterControl from '../../components/CounterControl/CounterControl'
 import { SyringeIcon, CalendarIcon, BoxIcon, ClockIcon, InfoIcon, ChevronRightIcon } from '../../icons'
+import { formatDateBR } from '../../utils/date'
 import './ContagemDoDiaScreen.css'
 
 // Tela de uso continuo ao longo do expediente: escolhe a vacina no carrossel
@@ -16,11 +17,19 @@ function ContagemDoDiaScreen({
   selectionMode,
   onOpenInfo,
   onOpenCadastro,
+  onOpenHistorico,
 }) {
   if (vaccines.length === 0) {
     return (
       <div className="contagem-dia-screen screen-enter">
-        <ScreenHeader title="Contagem do Dia" subtitle="Vacinação" onBack={onBack} rightIcon={<CalendarIcon size={20} />} />
+        <ScreenHeader
+          title="Contagem do Dia"
+          subtitle="Vacinação"
+          onBack={onBack}
+          rightIcon={<CalendarIcon size={20} />}
+          rightLabel="Histórico"
+          onRightAction={onOpenHistorico}
+        />
         <div className="contagem-dia-empty">
           <span className="contagem-dia-empty-icon">
             <SyringeIcon size={30} />
@@ -45,6 +54,8 @@ function ContagemDoDiaScreen({
         subtitle="Vacinação"
         onBack={onBack}
         rightIcon={<CalendarIcon size={20} />}
+        rightLabel="Histórico"
+        onRightAction={onOpenHistorico}
       />
 
       <VaccineCarousel
@@ -80,7 +91,7 @@ function ContagemDoDiaScreen({
           </div>
           <div>
             <span>Validade</span>
-            <strong>{active.validade}</strong>
+            <strong>{formatDateBR(active.validade)}</strong>
           </div>
         </div>
 

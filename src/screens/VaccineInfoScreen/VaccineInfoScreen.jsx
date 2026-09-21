@@ -1,5 +1,6 @@
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import { SyringeIcon, BoxIcon, ClockIcon } from '../../icons'
+import { formatDateBR } from '../../utils/date'
 import './VaccineInfoScreen.css'
 
 // Leitura detalhada de uma vacina, acessada pelo "Ver informacoes da vacina"
@@ -33,7 +34,7 @@ function VaccineInfoScreen({ vaccine, onBack }) {
           </div>
           <div className="vaccine-info-row">
             <span>Validade</span>
-            <strong>{vaccine.validade}</strong>
+            <strong>{formatDateBR(vaccine.validade)}</strong>
           </div>
           <div className="vaccine-info-row">
             <span>Estoque inicial de hoje</span>

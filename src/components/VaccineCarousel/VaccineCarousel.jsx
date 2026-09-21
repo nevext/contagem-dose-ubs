@@ -1,96 +1,124 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SyringeIcon } from '../../icons'
 import './VaccineCarousel.css'
 
-const TILE_WIDTH = 104
-const TILE_GAP = 10
-const TILE_STEP = TILE_WIDTH + TILE_GAP
-const TAP_TOLERANCE = 8
-const EDGE_RESISTANCE = 0.35
-
-// Roda de selecao de verdade: uma faixa continua com todas as vacinas,
-// que segue o dedo 1:1 enquanto arrasta e encaixa na vacina mais proxima
-// do centro ao soltar. Funciona nos dois modos de selecao; o que muda
-// entre "deslizar" e "selecionar" e so o que um toque simples faz.
+// Roda de selecao de vacinas com scroll nativo do navegador (o mesmo
+// mecanismo de um carrossel de fotos no celular, com scroll-snap
+// centralizando o item mais proximo). Isso da o "encaixe" natural que um
+// carrossel feito na mao com transform nunca acerta direito: no toque, quem
+// cuida do arrasto e o proprio sistema, com a inercia e o "freio" dele. Só
+// no mouse (desktop) a gente arrasta a mao porque nao tem drag nativo de
+// scroll com botao pressionado.
 function VaccineCarousel({ vaccines, activeIndex, onSelect, selectionMode, onOpenInfo }) {
-  const total = vaccines.length
-  const [dragDelta, setDragDelta] = useState(0)
-  const [isDragging, setIsDragging] = useState(false)
-  const dragState = useRef({ startX: 0, moved: false })
+  const viewportRef = useRef(null)
+  const tileRefs = useRef([])
+  const mouseDrag = useRef({ active: false, startX: 0, startScrollLeft: 0, moved: false })
+  const settleTimer = useRef(null)
+  const isSyncingScroll = useRef(false)
+  const [isUserScrolling, setIsUserScrolling] = useState(false)
 
-  const atStart = activeIndex === 0
-  const atEnd = activeIndex === total - 1
-  let effectiveDrag = dragDelta
-  if (atStart && dragDelta > 0) effectiveDrag = dragDelta * EDGE_RESISTANCE
-  if (atEnd && dragDelta < 0) effectiveDrag = dragDelta * EDGE_RESISTANCE
+  const scrollToIndex = (index, smooth = true) => {
+    const viewport = viewportRef.current
+    const tile = tileRefs.current[index]
+    if (!viewport || !tile) return
+    const target = tile.offsetLeft + tile.offsetWidth / 2 - viewport.clientWidth / 2
+    isSyncingScroll.current = true
+    viewport.scrollTo({ left: target, behavior: smooth ? 'smooth' : 'auto' })
+    window.setTimeout(() => {
+      isSyncingScroll.current = false
+    }, smooth ? 350 : 0)
+  }
 
-  const baseOffset = activeIndex * TILE_STEP + TILE_WIDTH / 2
-  const translateX = -baseOffset + effectiveDrag
+  useEffect(() => {
+    if (isUserScrolling) return
+    scrollToIndex(activeIndex)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeIndex, vaccines.length])
+
+  const handleScroll = () => {
+    if (isSyncingScroll.current) return
+    setIsUserScrolling(true)
+    clearTimeout(settleTimer.current)
+    settleTimer.current = setTimeout(() => {
+      setIsUserScrolling(false)
+      const viewport = viewportRef.current
+      if (!viewport) return
+      const center = viewport.scrollLeft + viewport.clientWidth / 2
+      let closest = 0
+      let closestDistance = Infinity
+      tileRefs.current.forEach((tile, index) => {
+        if (!tile) return
+        const tileCenter = tile.offsetLeft + tile.offsetWidth / 2
+        const distance = Math.abs(tileCenter - center)
+        if (distance < closestDistance) {
+          closestDistance = distance
+          closest = index
+        }
+      })
+      if (closest !== activeIndex) onSelect(closest)
+    }, 120)
+  }
 
   const handlePointerDown = (event) => {
-    if (total === 0) return
-    dragState.current = { startX: event.clientX, moved: false }
-    setIsDragging(true)
-    event.currentTarget.setPointerCapture?.(event.pointerId)
+    if (event.pointerType !== 'mouse') return
+    const viewport = viewportRef.current
+    mouseDrag.current = { active: true, startX: event.clientX, startScrollLeft: viewport.scrollLeft, moved: false }
+    viewport.setPointerCapture?.(event.pointerId)
   }
 
   const handlePointerMove = (event) => {
-    if (!isDragging) return
-    const delta = event.clientX - dragState.current.startX
-    if (Math.abs(delta) > TAP_TOLERANCE) dragState.current.moved = true
-    setDragDelta(delta)
+    if (event.pointerType !== 'mouse' || !mouseDrag.current.active) return
+    const delta = event.clientX - mouseDrag.current.startX
+    if (Math.abs(delta) > 4) mouseDrag.current.moved = true
+    viewportRef.current.scrollLeft = mouseDrag.current.startScrollLeft - delta
   }
 
-  const finishDrag = () => {
-    if (!isDragging) return
-    const stepsMoved = Math.round(dragDelta / TILE_STEP)
-    const newIndex = Math.min(total - 1, Math.max(0, activeIndex - stepsMoved))
-    setIsDragging(false)
-    setDragDelta(0)
-    if (newIndex !== activeIndex) onSelect(newIndex)
+  const stopMouseDrag = () => {
+    mouseDrag.current.active = false
   }
 
   const handleTileClick = (vaccine, index) => {
-    if (dragState.current.moved) {
-      dragState.current.moved = false
+    if (mouseDrag.current.moved) {
+      mouseDrag.current.moved = false
       return
     }
+    if (selectionMode === 'selecionar') {
+      onSelect(index)
+      onOpenInfo(vaccine.id)
+      return
+    }
+    if (index === activeIndex) return
     onSelect(index)
-    if (selectionMode === 'selecionar') onOpenInfo(vaccine.id)
   }
 
   return (
     <div className="vaccine-carousel">
       <div
         className="vaccine-carousel-viewport"
+        ref={viewportRef}
+        onScroll={handleScroll}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
-        onPointerUp={finishDrag}
-        onPointerLeave={finishDrag}
+        onPointerUp={stopMouseDrag}
+        onPointerLeave={stopMouseDrag}
       >
-        <div
-          className="vaccine-carousel-track"
-          style={{
-            transform: `translateX(${translateX}px)`,
-            transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)',
-          }}
-        >
-          {vaccines.map((vaccine, index) => (
-            <button
-              type="button"
-              key={vaccine.id}
-              className={`vaccine-tile clay-tap ${index === activeIndex ? 'vaccine-tile-active' : ''}`}
-              style={{ width: TILE_WIDTH }}
-              onClick={() => handleTileClick(vaccine, index)}
-            >
-              <span className="vaccine-tile-icon">
-                <SyringeIcon size={index === activeIndex ? 28 : 22} />
-              </span>
-              <strong>{vaccine.name}</strong>
-              <span>{vaccine.subtitle}</span>
-            </button>
-          ))}
-        </div>
+        {vaccines.map((vaccine, index) => (
+          <button
+            type="button"
+            key={vaccine.id}
+            ref={(node) => {
+              tileRefs.current[index] = node
+            }}
+            className={`vaccine-tile clay-tap ${index === activeIndex ? 'vaccine-tile-active' : ''}`}
+            onClick={() => handleTileClick(vaccine, index)}
+          >
+            <span className="vaccine-tile-icon">
+              <SyringeIcon size={index === activeIndex ? 28 : 22} />
+            </span>
+            <strong>{vaccine.name}</strong>
+            <span>{vaccine.subtitle}</span>
+          </button>
+        ))}
       </div>
 
       <div className="vaccine-carousel-dots">

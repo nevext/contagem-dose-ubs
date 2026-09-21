@@ -3,7 +3,7 @@ import './ScreenHeader.css'
 
 // Cabecalho padrao das telas internas: seta de voltar, titulo, subtitulo opcional
 // e um botao de acao a direita (recebe o icone pronto via rightIcon).
-function ScreenHeader({ title, subtitle, onBack, rightIcon, onRightAction }) {
+function ScreenHeader({ title, subtitle, onBack, rightIcon, onRightAction, rightLabel = 'Mais opções' }) {
   return (
     <header className="screen-header">
       <button type="button" className="clay-icon-button clay-tap" onClick={onBack} aria-label="Voltar">
@@ -16,7 +16,7 @@ function ScreenHeader({ title, subtitle, onBack, rightIcon, onRightAction }) {
       </div>
 
       {rightIcon ? (
-        <button type="button" className="clay-icon-button clay-tap" onClick={onRightAction} aria-label="Mais opcoes">
+        <button type="button" className="clay-icon-button clay-tap" onClick={onRightAction} aria-label={rightLabel}>
           {rightIcon}
         </button>
       ) : (

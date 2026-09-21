@@ -16,7 +16,13 @@ function VacinacaoScreen({
 }) {
   return (
     <div className="vacinacao-screen screen-enter">
-      <ScreenHeader title="Vacinação" onBack={onBack} rightIcon={<DotsIcon size={22} />} onRightAction={onOpenSettings} />
+      <ScreenHeader
+        title="Vacinação"
+        onBack={onBack}
+        rightIcon={<DotsIcon size={22} />}
+        onRightAction={onOpenSettings}
+        rightLabel="Definições da vacinação"
+      />
 
       <div className="vacinacao-date">
         <CalendarIcon size={18} />

@@ -12,74 +12,31 @@
   gap: 20px;
 }
 
-.cadastro-form {
+.cadastro-add-button {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 18px;
-  border-radius: var(--clay-radius-lg);
-  background: var(--clay-surface);
-  box-shadow: var(--clay-raised);
-}
-
-.cadastro-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.cadastro-field span {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--clay-text-body);
-}
-
-.cadastro-field input {
-  border: none;
-  border-radius: var(--clay-radius-md);
-  background: var(--clay-surface-strong);
-  box-shadow: var(--clay-pressed);
-  padding: 12px 14px;
-  font-family: inherit;
-  font-size: 15px;
-  color: var(--clay-text-heading);
-}
-
-.cadastro-field input:focus {
-  outline: 2px solid var(--clay-accent);
-  outline-offset: 1px;
-}
-
-.cadastro-form-actions {
-  display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
-  margin-top: 4px;
-}
-
-.cadastro-submit-button {
-  padding: 12px 20px;
+  padding: 16px;
   border: none;
-  border-radius: var(--clay-radius-md);
+  border-radius: var(--clay-radius-lg);
   background: var(--clay-accent);
   color: var(--clay-text-on-accent);
   font-family: inherit;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  box-shadow: var(--clay-raised);
+  box-shadow: var(--clay-raised-strong);
   cursor: pointer;
 }
 
-.cadastro-cancel-button {
-  padding: 12px 18px;
-  border: none;
-  border-radius: var(--clay-radius-md);
-  background: var(--clay-surface-strong);
-  color: var(--clay-text-muted);
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
+.cadastro-add-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cadastro-list-title {
