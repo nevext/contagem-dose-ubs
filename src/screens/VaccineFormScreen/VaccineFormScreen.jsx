@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
+import ClayDatePicker from '../../components/ClayDatePicker/ClayDatePicker'
 import './VaccineFormScreen.css'
 
 const emptyForm = { name: '', initialStock: '', dosePadrao: '', fabricante: '', lote: '', validade: '' }
@@ -72,10 +73,10 @@ function VaccineFormScreen({ vaccine, onSave, onBack }) {
           <input type="text" value={form.lote} onChange={setField('lote')} placeholder="Ex: AB1234" />
         </label>
 
-        <label className="vaccine-form-field">
+        <div className="vaccine-form-field">
           <span>Validade</span>
-          <input type="date" value={form.validade} onChange={setField('validade')} />
-        </label>
+          <ClayDatePicker value={form.validade} onChange={(iso) => setForm((current) => ({ ...current, validade: iso }))} placeholder="Selecionar validade" />
+        </div>
 
         <button type="submit" className="vaccine-form-submit clay-tap">
           {isEditing ? 'Salvar alterações' : 'Adicionar vacina'}
