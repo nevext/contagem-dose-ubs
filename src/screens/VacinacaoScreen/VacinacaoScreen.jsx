@@ -4,11 +4,17 @@ import { SyringeIcon, ClipboardIcon, HistoryIcon, CalendarIcon, DotsIcon } from 
 import './VacinacaoScreen.css'
 
 // Menu da secao Vacinacao: resumo do dia + acesso as sub-telas.
-// Cadastro de Vacinas, Finalizar o Dia e Historico ainda nao tem tela propria,
-// por isso caem no placeholder "em construcao" ate serem desenhadas.
-function VacinacaoScreen({ totalAppliedToday, formattedDate, onBack, onOpenContagem, onOpenPlaceholder }) {
+function VacinacaoScreen({
+  totalAppliedToday,
+  formattedDate,
+  onBack,
+  onOpenContagem,
+  onOpenCadastro,
+  onOpenFinalizar,
+  onOpenHistorico,
+}) {
   return (
-    <div className="vacinacao-screen">
+    <div className="vacinacao-screen screen-enter">
       <ScreenHeader title="Vacinação" onBack={onBack} rightIcon={<DotsIcon size={22} />} />
 
       <div className="vacinacao-date">
@@ -16,7 +22,7 @@ function VacinacaoScreen({ totalAppliedToday, formattedDate, onBack, onOpenConta
         <span>{formattedDate}</span>
       </div>
 
-      <button type="button" className="contagem-summary-card" onClick={onOpenContagem}>
+      <button type="button" className="contagem-summary-card clay-tap" onClick={onOpenContagem}>
         <div className="contagem-summary-texts">
           <span className="contagem-summary-label">Contagem do dia</span>
           <strong className="contagem-summary-value">{totalAppliedToday}</strong>
@@ -32,19 +38,19 @@ function VacinacaoScreen({ totalAppliedToday, formattedDate, onBack, onOpenConta
           icon={<SyringeIcon size={24} />}
           title="Cadastro de Vacinas"
           subtitle="Cadastrar e atualizar vacinas"
-          onClick={() => onOpenPlaceholder('Cadastro de Vacinas')}
+          onClick={onOpenCadastro}
         />
         <NavCard
           icon={<ClipboardIcon size={24} />}
           title="Finalizar o Dia"
           subtitle="Visualizar o resumo e o log do dia"
-          onClick={() => onOpenPlaceholder('Finalizar o Dia')}
+          onClick={onOpenFinalizar}
         />
         <NavCard
           icon={<HistoryIcon size={24} />}
           title="Histórico"
           subtitle="Consultar registros anteriores"
-          onClick={() => onOpenPlaceholder('Histórico')}
+          onClick={onOpenHistorico}
         />
       </nav>
 

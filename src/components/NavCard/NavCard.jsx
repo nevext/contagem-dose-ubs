@@ -5,7 +5,12 @@ import './NavCard.css'
 // variant="featured" destaca o card (fundo verde solido, texto claro).
 // disabled remove a interacao e mostra o visual "em breve".
 function NavCard({ icon, title, subtitle, onClick, variant = 'default', disabled = false }) {
-  const className = ['nav-card', variant === 'featured' ? 'nav-card-featured' : '', disabled ? 'nav-card-disabled' : '']
+  const className = [
+    'nav-card',
+    'clay-tap',
+    variant === 'featured' ? 'nav-card-featured' : '',
+    disabled ? 'nav-card-disabled' : '',
+  ]
     .filter(Boolean)
     .join(' ')
 

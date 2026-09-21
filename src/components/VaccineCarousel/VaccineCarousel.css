@@ -23,6 +23,9 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  touch-action: pan-y;
+  transition: transform 0.2s ease;
+  user-select: none;
 }
 
 .vaccine-tile {

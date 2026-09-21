@@ -18,6 +18,9 @@
 
   --clay-divider: #d7e6db;
 
+  --clay-danger: #b3453f;
+  --clay-danger-soft: #f4dcda;
+
   --clay-shadow-light: rgba(255, 255, 255, 0.85);
   --clay-shadow-dark: rgba(148, 181, 161, 0.45);
   --clay-shadow-dark-strong: rgba(101, 138, 118, 0.55);

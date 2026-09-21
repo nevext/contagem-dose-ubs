@@ -6,7 +6,7 @@ import './ScreenHeader.css'
 function ScreenHeader({ title, subtitle, onBack, rightIcon, onRightAction }) {
   return (
     <header className="screen-header">
-      <button type="button" className="clay-icon-button" onClick={onBack} aria-label="Voltar">
+      <button type="button" className="clay-icon-button clay-tap" onClick={onBack} aria-label="Voltar">
         <ChevronLeftIcon size={22} />
       </button>
 
@@ -16,7 +16,7 @@ function ScreenHeader({ title, subtitle, onBack, rightIcon, onRightAction }) {
       </div>
 
       {rightIcon ? (
-        <button type="button" className="clay-icon-button" onClick={onRightAction} aria-label="Mais opcoes">
+        <button type="button" className="clay-icon-button clay-tap" onClick={onRightAction} aria-label="Mais opcoes">
           {rightIcon}
         </button>
       ) : (

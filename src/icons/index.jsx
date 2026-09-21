@@ -60,6 +60,48 @@ export function PersonIcon({ size = 24, className }) {
   )
 }
 
+export function GearIcon({ size = 24, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <circle cx="12" cy="12" r="3.2" />
+      <path d="M12 3.5v2.4M12 18.1v2.4M20.5 12h-2.4M5.9 12H3.5M17.7 6.3l-1.7 1.7M8 16l-1.7 1.7M17.7 17.7L16 16M8 8L6.3 6.3" />
+    </svg>
+  )
+}
+
+export function EditIcon({ size = 24, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M14.5 4.5l5 5L8 21H3v-5z" />
+    </svg>
+  )
+}
+
+export function TrashIcon({ size = 24, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M4 7h16M9 7V4.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1V7M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13" />
+    </svg>
+  )
+}
+
+export function CheckIcon({ size = 24, className }) {
+  return (
+    <svg {...base(size)} className={className} strokeWidth={2.4}>
+      <path d="M5 12.5l4.5 4.5L19 7" />
+    </svg>
+  )
+}
+
+export function AlertIcon({ size = 24, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 3.5l9.5 16.5h-19z" />
+      <path d="M12 10v4M12 17v.01" />
+    </svg>
+  )
+}
+
 export function ChevronRightIcon({ size = 24, className }) {
   return (
     <svg {...base(size)} className={className}>

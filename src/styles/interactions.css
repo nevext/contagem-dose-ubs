@@ -1,0 +1,54 @@
+/* Utilitarios de feedback usados em todo elemento clicavel do app:
+   .clay-tap acende um flash sutil no toque, .screen-enter anima a entrada
+   de cada tela pra a navegacao nao parecer uma troca seca de tela. */
+
+.clay-tap {
+  position: relative;
+  overflow: hidden;
+}
+
+.clay-tap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.clay-tap:active::after {
+  opacity: 0.12;
+  transition: opacity 0.05s ease;
+}
+
+@keyframes screen-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.screen-enter {
+  animation: screen-enter 0.28s ease both;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.9);
+  }
+  60% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pop-in {
+  animation: pop-in 0.25s ease both;
+}

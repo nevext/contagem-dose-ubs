@@ -1,0 +1,115 @@
+.vaccine-info-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding-bottom: 24px;
+}
+
+.vaccine-info-body {
+  padding: 12px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.vaccine-info-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.vaccine-info-icon {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--clay-accent-soft);
+  color: var(--clay-accent-dark);
+  box-shadow: var(--clay-raised);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vaccine-info-head div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vaccine-info-head strong {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--clay-text-heading);
+}
+
+.vaccine-info-head span {
+  font-size: 14px;
+  color: var(--clay-text-muted);
+}
+
+.vaccine-info-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--clay-radius-lg);
+  background: var(--clay-surface);
+  box-shadow: var(--clay-raised);
+  overflow: hidden;
+}
+
+.vaccine-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--clay-divider);
+}
+
+.vaccine-info-row:last-child {
+  border-bottom: none;
+}
+
+.vaccine-info-row span {
+  font-size: 14px;
+  color: var(--clay-text-muted);
+}
+
+.vaccine-info-row strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--clay-text-heading);
+}
+
+.vaccine-info-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.vaccine-info-footer-grid > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  border-radius: var(--clay-radius-md);
+  background: var(--clay-surface-strong);
+  color: var(--clay-accent-dark);
+}
+
+.vaccine-info-footer-grid > div > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.vaccine-info-footer-grid span {
+  font-size: 12px;
+  color: var(--clay-text-muted);
+}
+
+.vaccine-info-footer-grid strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--clay-text-heading);
+}

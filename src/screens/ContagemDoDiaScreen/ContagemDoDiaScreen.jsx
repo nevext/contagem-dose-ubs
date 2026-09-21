@@ -6,12 +6,42 @@ import './ContagemDoDiaScreen.css'
 
 // Tela de uso continuo ao longo do expediente: escolhe a vacina no carrossel
 // e usa o +/- para registrar doses aplicadas, com estoque calculado ao vivo.
-function ContagemDoDiaScreen({ vaccines, activeIndex, onSelect, onPrev, onNext, onIncrement, onDecrement, onBack }) {
+function ContagemDoDiaScreen({
+  vaccines,
+  activeIndex,
+  onSelect,
+  onPrev,
+  onNext,
+  onIncrement,
+  onDecrement,
+  onBack,
+  selectionMode,
+  onOpenInfo,
+  onOpenCadastro,
+}) {
+  if (vaccines.length === 0) {
+    return (
+      <div className="contagem-dia-screen screen-enter">
+        <ScreenHeader title="Contagem do Dia" subtitle="Vacinação" onBack={onBack} rightIcon={<CalendarIcon size={20} />} />
+        <div className="contagem-dia-empty">
+          <span className="contagem-dia-empty-icon">
+            <SyringeIcon size={30} />
+          </span>
+          <strong>Nenhuma vacina cadastrada</strong>
+          <p>Cadastre as vacinas de hoje pra começar a contagem.</p>
+          <button type="button" className="clay-tap contagem-dia-empty-button" onClick={onOpenCadastro}>
+            Cadastrar vacina
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   const active = vaccines[activeIndex]
   const availableStock = active.initialStock - active.appliedToday
 
   return (
-    <div className="contagem-dia-screen">
+    <div className="contagem-dia-screen screen-enter">
       <ScreenHeader
         title="Contagem do Dia"
         subtitle="Vacinação"
@@ -25,9 +55,11 @@ function ContagemDoDiaScreen({ vaccines, activeIndex, onSelect, onPrev, onNext, 
         onSelect={onSelect}
         onPrev={onPrev}
         onNext={onNext}
+        selectionMode={selectionMode}
+        onOpenInfo={onOpenInfo}
       />
 
-      <section className="vaccine-detail-card">
+      <section className="vaccine-detail-card pop-in" key={active.id}>
         <div className="vaccine-detail-head">
           <span className="vaccine-detail-icon">
             <SyringeIcon size={26} />
@@ -79,11 +111,11 @@ function ContagemDoDiaScreen({ vaccines, activeIndex, onSelect, onPrev, onNext, 
           </div>
         </div>
 
-        <div className="vaccine-detail-info-row">
+        <button type="button" className="vaccine-detail-info-row clay-tap" onClick={() => onOpenInfo(active.id)}>
           <InfoIcon size={18} />
           <span>Ver informações da vacina</span>
           <ChevronRightIcon size={18} />
-        </div>
+        </button>
       </section>
 
       <footer className="contagem-dia-footer">
