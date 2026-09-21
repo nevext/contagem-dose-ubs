@@ -54,7 +54,7 @@ function App() {
   const totalAppliedToday = vaccines.reduce((sum, vaccine) => sum + vaccine.appliedToday, 0)
   const formattedDate = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(new Date())
 
-  const addVaccine = ({ name, initialStock, dosePadrao, lote, validade }) => {
+  const addVaccine = ({ name, initialStock, dosePadrao, fabricante, lote, validade }) => {
     setState((current) => ({
       ...current,
       vaccines: [
@@ -64,6 +64,7 @@ function App() {
           name,
           subtitle: name,
           dosePadrao,
+          fabricante,
           lote,
           validade,
           initialStock,
@@ -74,11 +75,11 @@ function App() {
     }))
   }
 
-  const updateVaccine = (id, { name, initialStock, dosePadrao, lote, validade }) => {
+  const updateVaccine = (id, { name, initialStock, dosePadrao, fabricante, lote, validade }) => {
     setState((current) => ({
       ...current,
       vaccines: current.vaccines.map((vaccine) =>
-        vaccine.id === id ? { ...vaccine, name, subtitle: name, initialStock, dosePadrao, lote, validade } : vaccine,
+        vaccine.id === id ? { ...vaccine, name, subtitle: name, initialStock, dosePadrao, fabricante, lote, validade } : vaccine,
       ),
     }))
   }

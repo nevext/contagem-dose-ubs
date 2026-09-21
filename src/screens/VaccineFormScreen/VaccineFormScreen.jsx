@@ -2,7 +2,7 @@ import { useState } from 'react'
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import './VaccineFormScreen.css'
 
-const emptyForm = { name: '', initialStock: '', dosePadrao: '', lote: '', validade: '' }
+const emptyForm = { name: '', initialStock: '', dosePadrao: '', fabricante: '', lote: '', validade: '' }
 
 // Tela dedicada de cadastro/edicao de vacina, com as informacoes detalhadas
 // (dose padrao, lote, validade) que antes so apareciam como "—" na Contagem
@@ -15,6 +15,7 @@ function VaccineFormScreen({ vaccine, onSave, onBack }) {
           name: vaccine.name,
           initialStock: String(vaccine.initialStock),
           dosePadrao: vaccine.dosePadrao ?? '',
+          fabricante: vaccine.fabricante && vaccine.fabricante !== '—' ? vaccine.fabricante : '',
           lote: vaccine.lote && vaccine.lote !== '—' ? vaccine.lote : '',
           validade: vaccine.validade ?? '',
         }
@@ -33,6 +34,7 @@ function VaccineFormScreen({ vaccine, onSave, onBack }) {
       name,
       initialStock,
       dosePadrao: form.dosePadrao.trim() || '1 dose',
+      fabricante: form.fabricante.trim() || '—',
       lote: form.lote.trim() || '—',
       validade: form.validade || '',
     })
@@ -58,6 +60,11 @@ function VaccineFormScreen({ vaccine, onSave, onBack }) {
         <label className="vaccine-form-field">
           <span>Dose padrão</span>
           <input type="text" value={form.dosePadrao} onChange={setField('dosePadrao')} placeholder="Ex: 1 dose" />
+        </label>
+
+        <label className="vaccine-form-field">
+          <span>Fabricante</span>
+          <input type="text" value={form.fabricante} onChange={setField('fabricante')} placeholder="Ex: Butantan" />
         </label>
 
         <label className="vaccine-form-field">

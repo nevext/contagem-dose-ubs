@@ -93,6 +93,10 @@ function ContagemDoDiaScreen({
             <strong>{active.dosePadrao}</strong>
           </div>
           <div>
+            <span>Fabricante</span>
+            <strong>{active.fabricante ?? '—'}</strong>
+          </div>
+          <div>
             <span>Lote atual</span>
             <strong>{active.lote}</strong>
           </div>

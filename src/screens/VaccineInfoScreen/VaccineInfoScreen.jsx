@@ -29,6 +29,10 @@ function VaccineInfoScreen({ vaccine, onBack }) {
             <strong>{vaccine.dosePadrao}</strong>
           </div>
           <div className="vaccine-info-row">
+            <span>Fabricante</span>
+            <strong>{vaccine.fabricante ?? '—'}</strong>
+          </div>
+          <div className="vaccine-info-row">
             <span>Lote atual</span>
             <strong>{vaccine.lote}</strong>
           </div>
