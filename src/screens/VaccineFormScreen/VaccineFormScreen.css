@@ -21,6 +21,19 @@
   letter-spacing: 0.04em;
 }
 
+.vaccine-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.vaccine-form-hint {
+  margin: -6px 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--clay-text-muted);
+}
+
 .vaccine-form-field {
   display: flex;
   flex-direction: column;

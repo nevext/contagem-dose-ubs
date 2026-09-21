@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
 import { ClipboardIcon, CheckIcon, AlertIcon, CalendarIcon } from '../../icons'
+import { totalDoses } from '../../utils/vaccine'
 import './FinalizarDiaScreen.css'
 
 // Tela que resolve o problema principal do projeto: compara o estoque
@@ -23,7 +24,7 @@ function FinalizarDiaScreen({ vaccines, onFinalize, onBack }) {
   }
 
   const results = vaccines.map((vaccine) => {
-    const expected = vaccine.initialStock - vaccine.appliedToday
+    const expected = totalDoses(vaccine) - vaccine.appliedToday
     const counted = Number(counts[vaccine.id])
     const diff = expected - counted
     return { id: vaccine.id, name: vaccine.name, expected, counted, diff }
@@ -81,7 +82,7 @@ function FinalizarDiaScreen({ vaccines, onFinalize, onBack }) {
                 <div className="finalizar-item-grid">
                   <div>
                     <span>Estoque inicial</span>
-                    <strong>{vaccine.initialStock}</strong>
+                    <strong>{totalDoses(vaccine)}</strong>
                   </div>
                   <div>
                     <span>Doses aplicadas</span>

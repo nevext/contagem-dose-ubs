@@ -3,7 +3,7 @@ import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import ClayDatePicker from '../../components/ClayDatePicker/ClayDatePicker'
 import './VaccineFormScreen.css'
 
-const emptyForm = { name: '', initialStock: '', dosePadrao: '', fabricante: '', lote: '', validade: '' }
+const emptyForm = { name: '', frascos: '', dosesPorFrasco: '', dosePadrao: '', fabricante: '', lote: '', validade: '' }
 
 // Tela dedicada de cadastro/edicao de vacina, com as informacoes detalhadas
 // (dose padrao, lote, validade) que antes so apareciam como "—" na Contagem
@@ -14,7 +14,8 @@ function VaccineFormScreen({ vaccine, onSave, onBack }) {
     isEditing
       ? {
           name: vaccine.name,
-          initialStock: String(vaccine.initialStock),
+          frascos: String(vaccine.frascos),
+          dosesPorFrasco: String(vaccine.dosesPorFrasco),
           dosePadrao: vaccine.dosePadrao ?? '',
           fabricante: vaccine.fabricante && vaccine.fabricante !== '—' ? vaccine.fabricante : '',
           lote: vaccine.lote && vaccine.lote !== '—' ? vaccine.lote : '',
@@ -28,12 +29,15 @@ function VaccineFormScreen({ vaccine, onSave, onBack }) {
   const handleSubmit = (event) => {
     event.preventDefault()
     const name = form.name.trim()
-    const initialStock = Number(form.initialStock)
-    if (!name || !Number.isFinite(initialStock) || initialStock < 0) return
+    const frascos = Number(form.frascos)
+    const dosesPorFrasco = form.dosesPorFrasco.trim() ? Number(form.dosesPorFrasco) : 1
+    if (!name || !Number.isFinite(frascos) || frascos < 0) return
+    if (!Number.isFinite(dosesPorFrasco) || dosesPorFrasco < 1) return
 
     onSave({
       name,
-      initialStock,
+      frascos,
+      dosesPorFrasco,
       dosePadrao: form.dosePadrao.trim() || '1 dose',
       fabricante: form.fabricante.trim() || '—',
       lote: form.lote.trim() || '—',
@@ -51,10 +55,21 @@ function VaccineFormScreen({ vaccine, onSave, onBack }) {
           <input type="text" value={form.name} onChange={setField('name')} placeholder="Ex: Gripe" />
         </label>
 
-        <label className="vaccine-form-field">
-          <span>Quantidade inicial em estoque</span>
-          <input type="number" min="0" value={form.initialStock} onChange={setField('initialStock')} placeholder="Ex: 40" />
-        </label>
+        <div className="vaccine-form-row">
+          <label className="vaccine-form-field">
+            <span>Frascos em estoque</span>
+            <input type="number" min="0" value={form.frascos} onChange={setField('frascos')} placeholder="Ex: 10" />
+          </label>
+
+          <label className="vaccine-form-field">
+            <span>Doses por frasco</span>
+            <input type="number" min="1" value={form.dosesPorFrasco} onChange={setField('dosesPorFrasco')} placeholder="Ex: 1" />
+          </label>
+        </div>
+        <p className="vaccine-form-hint">
+          Vacina de dose única: deixa "Doses por frasco" em 1. Frasco multi-dose (ex: febre amarela): coloca quantas
+          doses saem de cada frasco (ex: 4) — a contagem do dia continua sendo por dose aplicada.
+        </p>
 
         <p className="vaccine-form-section-title">Informações detalhadas (opcional)</p>
 

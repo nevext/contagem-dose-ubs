@@ -10,6 +10,7 @@ import VaccineFormScreen from './screens/VaccineFormScreen/VaccineFormScreen'
 import VaccineSearchScreen from './screens/VaccineSearchScreen/VaccineSearchScreen'
 import SettingsScreen from './screens/SettingsScreen/SettingsScreen'
 import { exportBackupJson, exportHistoricoCsv } from './utils/exportData'
+import { normalizeVaccine, totalDoses } from './utils/vaccine'
 import './App.css'
 
 const STORAGE_KEY = 'contagem-dose-ubs'
@@ -24,8 +25,8 @@ function loadState() {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (!saved) return defaultState
     const parsed = JSON.parse(saved)
-    if (Array.isArray(parsed)) return { ...defaultState, vaccines: parsed }
-    return { ...defaultState, ...parsed }
+    const state = Array.isArray(parsed) ? { ...defaultState, vaccines: parsed } : { ...defaultState, ...parsed }
+    return { ...state, vaccines: state.vaccines.map(normalizeVaccine) }
   } catch {
     return defaultState
   }
@@ -55,7 +56,7 @@ function App() {
   const totalAppliedToday = vaccines.reduce((sum, vaccine) => sum + vaccine.appliedToday, 0)
   const formattedDate = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(new Date())
 
-  const addVaccine = ({ name, initialStock, dosePadrao, fabricante, lote, validade }) => {
+  const addVaccine = ({ name, frascos, dosesPorFrasco, dosePadrao, fabricante, lote, validade }) => {
     setState((current) => ({
       ...current,
       vaccines: [
@@ -68,7 +69,8 @@ function App() {
           fabricante,
           lote,
           validade,
-          initialStock,
+          frascos,
+          dosesPorFrasco,
           appliedToday: 0,
           lastUsedAt: null,
         },
@@ -76,11 +78,13 @@ function App() {
     }))
   }
 
-  const updateVaccine = (id, { name, initialStock, dosePadrao, fabricante, lote, validade }) => {
+  const updateVaccine = (id, { name, frascos, dosesPorFrasco, dosePadrao, fabricante, lote, validade }) => {
     setState((current) => ({
       ...current,
       vaccines: current.vaccines.map((vaccine) =>
-        vaccine.id === id ? { ...vaccine, name, subtitle: name, initialStock, dosePadrao, fabricante, lote, validade } : vaccine,
+        vaccine.id === id
+          ? { ...vaccine, name, subtitle: name, frascos, dosesPorFrasco, dosePadrao, fabricante, lote, validade }
+          : vaccine,
       ),
     }))
   }
@@ -97,7 +101,7 @@ function App() {
       ...current,
       vaccines: current.vaccines.map((vaccine) => {
         if (vaccine.id !== id) return vaccine
-        const nextValue = Math.min(vaccine.initialStock, Math.max(0, vaccine.appliedToday + delta))
+        const nextValue = Math.min(totalDoses(vaccine), Math.max(0, vaccine.appliedToday + delta))
         const lastUsedAt = new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit' }).format(new Date())
         return { ...vaccine, appliedToday: nextValue, lastUsedAt }
       }),
@@ -132,7 +136,7 @@ function App() {
       const vaccineMap = new Map(current.vaccines.map((vaccine) => [vaccine.id, vaccine]))
       importedVaccines.forEach((vaccine) => {
         if (!vaccine?.id) return
-        vaccineMap.set(vaccine.id, { ...vaccineMap.get(vaccine.id), ...vaccine })
+        vaccineMap.set(vaccine.id, normalizeVaccine({ ...vaccineMap.get(vaccine.id), ...vaccine }))
       })
 
       const historyMap = new Map(current.history.map((record) => [record.id, record]))

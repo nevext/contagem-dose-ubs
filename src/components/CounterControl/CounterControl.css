@@ -1,12 +1,18 @@
 .counter-control {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   gap: 12px;
   padding: 14px 18px;
   border-radius: var(--clay-radius-lg);
   background: var(--clay-surface-strong);
   box-shadow: var(--clay-pressed);
+}
+
+.counter-control-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .counter-button {
@@ -56,4 +62,53 @@
 .counter-value span {
   font-size: 12px;
   color: var(--clay-text-muted);
+}
+
+.counter-frasco-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--clay-divider);
+}
+
+.counter-frasco-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  max-width: 100%;
+}
+
+.counter-frasco-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--clay-divider);
+}
+
+.counter-frasco-dot-filled {
+  background: var(--clay-accent);
+}
+
+.counter-frasco-bar {
+  width: 100%;
+  max-width: 220px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--clay-divider);
+  overflow: hidden;
+}
+
+.counter-frasco-bar-fill {
+  height: 100%;
+  background: var(--clay-accent);
+  border-radius: 999px;
+}
+
+.counter-frasco-progress span {
+  font-size: 12px;
+  color: var(--clay-text-muted);
+  font-weight: 600;
 }

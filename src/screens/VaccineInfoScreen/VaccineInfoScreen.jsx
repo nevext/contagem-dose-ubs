@@ -1,12 +1,13 @@
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import { SyringeIcon, BoxIcon, ClockIcon } from '../../icons'
 import { formatDateBR } from '../../utils/date'
+import { totalDoses, availableDoses, frascosUsados } from '../../utils/vaccine'
 import './VaccineInfoScreen.css'
 
 // Leitura detalhada de uma vacina, acessada pelo "Ver informacoes da vacina"
 // ou, no modo de selecao por toque, ao tocar direto no card do carrossel.
 function VaccineInfoScreen({ vaccine, onBack }) {
-  const availableStock = vaccine.initialStock - vaccine.appliedToday
+  const availableStock = availableDoses(vaccine)
 
   return (
     <div className="vaccine-info-screen screen-enter">
@@ -41,13 +42,27 @@ function VaccineInfoScreen({ vaccine, onBack }) {
             <strong>{formatDateBR(vaccine.validade)}</strong>
           </div>
           <div className="vaccine-info-row">
+            <span>Frascos em estoque</span>
+            <strong>
+              {vaccine.frascos} ({vaccine.dosesPorFrasco} dose{vaccine.dosesPorFrasco === 1 ? '' : 's'}/frasco)
+            </strong>
+          </div>
+          <div className="vaccine-info-row">
             <span>Estoque inicial de hoje</span>
-            <strong>{vaccine.initialStock} doses</strong>
+            <strong>{totalDoses(vaccine)} doses</strong>
           </div>
           <div className="vaccine-info-row">
             <span>Aplicadas hoje</span>
             <strong>{vaccine.appliedToday} doses</strong>
           </div>
+          {vaccine.dosesPorFrasco > 1 && (
+            <div className="vaccine-info-row">
+              <span>Frascos usados hoje</span>
+              <strong>
+                {frascosUsados(vaccine)} de {vaccine.frascos}
+              </strong>
+            </div>
+          )}
         </div>
 
         <div className="vaccine-info-footer-grid">

@@ -5,6 +5,7 @@ import CounterControl from '../../components/CounterControl/CounterControl'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
 import { SyringeIcon, SearchIcon, BoxIcon, InfoIcon, ChevronRightIcon } from '../../icons'
 import { formatDateBR } from '../../utils/date'
+import { availableDoses, doseNoFrascoAtual } from '../../utils/vaccine'
 import './ContagemDoDiaScreen.css'
 
 // Tela de uso continuo ao longo do expediente: escolhe a vacina no carrossel
@@ -52,7 +53,7 @@ function ContagemDoDiaScreen({
   }
 
   const active = vaccines[activeIndex]
-  const availableStock = active.initialStock - active.appliedToday
+  const availableStock = availableDoses(active)
 
   const confirmChange = () => {
     if (pendingChange === 'increment') onIncrement(active.id)
@@ -110,6 +111,7 @@ function ContagemDoDiaScreen({
           value={active.appliedToday}
           onIncrement={() => setPendingChange('increment')}
           onDecrement={() => setPendingChange('decrement')}
+          frascoProgress={{ used: doseNoFrascoAtual(active), total: active.dosesPorFrasco }}
         />
 
         <p className="vaccine-detail-last-update">Última atualização: {active.lastUsedAt ?? '--:--'}</p>

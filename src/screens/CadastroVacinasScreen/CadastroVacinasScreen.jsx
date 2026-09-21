@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
 import { SyringeIcon, EditIcon, TrashIcon, PlusIcon } from '../../icons'
+import { totalDoses } from '../../utils/vaccine'
 import './CadastroVacinasScreen.css'
 
 // Tela usada uma vez pela manha (ou quando chega uma vacina nova) pra
@@ -42,7 +43,10 @@ function CadastroVacinasScreen({ vaccines, onRemove, onOpenNew, onOpenEdit, onBa
                 </span>
                 <div className="cadastro-item-texts">
                   <strong>{vaccine.name}</strong>
-                  <span>{vaccine.initialStock} doses no estoque inicial</span>
+                  <span>
+                    {vaccine.frascos} frasco{vaccine.frascos === 1 ? '' : 's'}
+                    {vaccine.dosesPorFrasco > 1 ? ` (${vaccine.dosesPorFrasco} doses cada)` : ''} · {totalDoses(vaccine)} doses no estoque
+                  </span>
                 </div>
                 <button type="button" className="clay-icon-button clay-tap" onClick={() => onOpenEdit(vaccine.id)} aria-label={`Editar ${vaccine.name}`}>
                   <EditIcon size={18} />
