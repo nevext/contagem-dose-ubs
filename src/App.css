@@ -1,0 +1,120 @@
+:root {
+  --blue: #0b4f9e;
+  --blue-dark: #073873;
+  --blue-soft: #eaf2fb;
+  --ink: #14243a;
+  --muted: #617188;
+  --line: #d9e3ee;
+  --paper: #ffffff;
+  --background: #f5f8fc;
+  --green: #16764a;
+  --green-soft: #e6f5ed;
+  --red: #bb3d3d;
+  --red-soft: #fceded;
+  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+  color: var(--ink);
+  background: var(--background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+
+.app-shell { width: min(100%, 980px); margin: 0 auto; padding: 0 20px 64px; }
+.app-header { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 28px 0 34px; border-bottom: 1px solid var(--line); }
+.brand-mark { display: grid; width: 45px; height: 45px; place-items: center; border-radius: 13px; color: white; background: var(--blue); font-size: 31px; font-weight: 300; box-shadow: 0 8px 18px #0b4f9e2b; }
+.eyebrow, .section-kicker, .card-label { margin: 0; color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+.app-header h1 { margin: 2px 0 0; color: var(--ink); font-size: 21px; letter-spacing: -.03em; }
+.app-header time { max-width: 120px; color: var(--muted); font-size: 12px; line-height: 1.3; text-align: right; text-transform: capitalize; }
+.intro-section, .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.intro-section { padding: 36px 0 22px; }
+h2 { margin: 5px 0 7px; color: var(--ink); font-size: 25px; line-height: 1.15; letter-spacing: -.04em; }
+.muted-text { margin: 0; max-width: 540px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.vaccine-total, .history-count { padding: 7px 11px; border-radius: 20px; color: var(--blue); background: var(--blue-soft); font-size: 12px; font-weight: 700; white-space: nowrap; }
+.add-vaccine-form, .vaccine-card, .history-section { border: 1px solid var(--line); border-radius: 14px; background: var(--paper); box-shadow: 0 8px 24px #18385c0b; }
+.add-vaccine-form { padding: 20px; }
+.form-title { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+.form-title h2 { margin-top: 0; font-size: 18px; }
+.form-title p { margin: 0; color: var(--muted); font-size: 12px; }
+.step-number { display: grid; width: 31px; height: 31px; flex: 0 0 31px; place-items: center; border-radius: 50%; color: var(--blue); background: var(--blue-soft); font-size: 11px; font-weight: 800; }
+.form-fields { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(130px, .7fr) auto; gap: 12px; align-items: end; }
+label { display: grid; gap: 7px; color: var(--ink); font-size: 12px; font-weight: 700; }
+input { width: 100%; min-height: 46px; padding: 0 13px; border: 1px solid var(--line); border-radius: 9px; outline: none; color: var(--ink); background: #fbfdff; font-size: 15px; }
+input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px #0b4f9e1a; }
+.add-button, .primary-button, .dose-button { min-height: 46px; border: 0; border-radius: 9px; color: white; background: var(--blue); font-weight: 800; transition: background .2s, transform .2s; }
+.add-button { padding: 0 16px; white-space: nowrap; }
+.add-button span, .dose-button span { margin-right: 5px; font-size: 20px; font-weight: 400; vertical-align: -1px; }
+.add-button:hover, .primary-button:hover, .dose-button:hover { background: var(--blue-dark); transform: translateY(-1px); }
+.vaccine-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 22px; }
+.vaccine-card { padding: 19px; }
+.vaccine-card-top { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
+.vaccine-card h2 { margin: 4px 0 0; font-size: 20px; }
+.card-label { color: var(--muted); font-size: 9px; }
+.remaining-badge { padding: 5px 8px; border-radius: 6px; color: var(--blue); background: var(--blue-soft); font-size: 11px; font-weight: 700; white-space: nowrap; }
+.dose-counter { display: flex; align-items: baseline; gap: 8px; margin: 23px 0 17px; padding-bottom: 15px; border-bottom: 1px solid var(--line); }
+.dose-number { color: var(--blue); font-size: 45px; font-weight: 800; line-height: .9; letter-spacing: -.06em; }
+.dose-counter span { color: var(--muted); font-size: 13px; }
+.dose-actions { display: flex; gap: 8px; }
+.dose-button { flex: 1; font-size: 14px; }
+.minus-button, .secondary-button, .close-button { border: 1px solid var(--line); border-radius: 9px; color: var(--ink); background: white; font-weight: 700; }
+.minus-button { width: 58px; font-size: 14px; }
+.minus-button:hover, .secondary-button:hover, .close-button:hover { border-color: var(--blue); color: var(--blue); }
+.empty-state { margin-top: 22px; padding: 42px 22px; border: 1px dashed #b5c6d9; border-radius: 14px; text-align: center; }
+.empty-icon { display: grid; width: 42px; height: 42px; margin: 0 auto 14px; place-items: center; border-radius: 12px; color: var(--blue); background: var(--blue-soft); font-size: 27px; }
+.empty-state h2 { font-size: 18px; }
+.empty-state p, .closing-action p { margin: 0; color: var(--muted); font-size: 13px; }
+.closing-action { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 24px 0 40px; padding: 20px; border-radius: 14px; background: var(--blue); }
+.closing-action p { color: #d9e8f8; }
+.primary-button { padding: 0 18px; white-space: nowrap; }
+.closing-action .primary-button { color: var(--blue); background: white; }
+.closing-action .primary-button:hover { background: #eaf2fb; }
+.section-heading { margin-bottom: 14px; }
+.section-heading h2 { margin-bottom: 0; font-size: 20px; }
+.history-section { padding: 20px; }
+.history-list { border-top: 1px solid var(--line); }
+.history-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.history-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.history-row strong, .history-row span { display: block; }
+.history-row strong { font-size: 13px; }
+.history-row div span { margin-top: 3px; color: var(--muted); font-size: 11px; }
+.history-status, .difference-preview { padding: 5px 8px; border-radius: 6px; font-size: 11px !important; font-weight: 800; white-space: nowrap; }
+.is-ok { color: var(--green) !important; background: var(--green-soft); }
+.has-divergence { color: var(--red) !important; background: var(--red-soft); }
+.modal-backdrop { position: fixed; z-index: 10; inset: 0; display: grid; align-items: end; padding: 16px; background: #10243a66; }
+.closing-modal { width: min(100%, 620px); max-height: 90svh; margin: 0 auto; overflow: auto; padding: 22px; border-radius: 15px; background: white; box-shadow: 0 20px 60px #10243a40; }
+.modal-header { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
+.modal-header h2 { font-size: 23px; }
+.close-button { width: 34px; height: 34px; font-size: 22px; line-height: 1; }
+.stock-fields { display: grid; gap: 10px; }
+.stock-row { display: grid; grid-template-columns: 1fr 85px auto; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 9px; }
+.stock-row strong, .stock-row small { display: block; }
+.stock-row strong { font-size: 13px; }
+.stock-row small { margin-top: 3px; color: var(--muted); font-size: 11px; font-weight: 400; }
+.stock-row input { min-height: 40px; padding: 0 9px; }
+.difference-preview { min-width: 30px; text-align: center; }
+.validation-message { margin: 13px 0 0; color: var(--red); font-size: 12px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.secondary-button { min-height: 44px; padding: 0 16px; }
+
+@media (max-width: 640px) {
+  .app-shell { padding: 0 14px 40px; }
+  .app-header { padding-top: 20px; }
+  .app-header time { display: none; }
+  .intro-section { align-items: start; padding-top: 27px; }
+  .intro-section, .section-heading { gap: 10px; }
+  h2 { font-size: 22px; }
+  .form-fields, .vaccine-list { grid-template-columns: 1fr; }
+  .form-fields { gap: 11px; }
+  .add-button { width: 100%; }
+  .vaccine-list { margin-top: 14px; }
+  .closing-action { display: block; padding: 16px; }
+  .closing-action .primary-button { width: 100%; margin-bottom: 10px; }
+  .history-section { padding: 16px; }
+  .modal-backdrop { padding: 0; }
+  .closing-modal { max-height: 94svh; padding: 20px 16px; border-radius: 15px 15px 0 0; }
+}
