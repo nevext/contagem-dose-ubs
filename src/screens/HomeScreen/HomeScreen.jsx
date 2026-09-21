@@ -12,7 +12,7 @@ function HomeScreen({ onOpenVacinacao, onOpenSettings }) {
           <HealthMarkIcon size={22} />
         </span>
         <div className="home-brand-texts">
-          <strong>USF Tarumã</strong>
+          <strong>USF</strong>
           <span>Unidade de Saúde da Família</span>
         </div>
         <button type="button" className="clay-icon-button clay-tap" onClick={onOpenSettings} aria-label="Definições">
