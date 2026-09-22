@@ -10,7 +10,7 @@ function HomeScreen({ onOpenVacinacao, onOpenSettings }) {
     <div className="home-screen screen-enter">
       <div className="home-topbar">
         <span className="home-brand-mark">
-          <img src='/brasao.png' alt='USF' width={32} height={32} style={{objectFit: 'contain'}} />
+          <img src='../public/brasao.png' alt='USF' width={32} height={32} style={{objectFit: 'contain'}} />
         </span>
         <div className="home-brand-texts">
           <strong>USF</strong>
@@ -23,7 +23,7 @@ function HomeScreen({ onOpenVacinacao, onOpenSettings }) {
 
       <div className="home-hero">
         <span className="home-hero-mark">
-          <img src='/brasao.png' alt='USF' width={100} height={100} style={{objectFit: 'contain'}} />
+          <img src='../public/brasao.png' alt='USF' width={100} height={100} style={{objectFit: 'contain'}} />
         </span>
         <h1>USF</h1>
         <p>Unidade de Saúde da Família</p>
