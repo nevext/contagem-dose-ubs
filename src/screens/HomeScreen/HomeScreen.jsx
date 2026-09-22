@@ -1,5 +1,5 @@
 import NavCard from '../../components/NavCard/NavCard'
-import { SyringeIcon, MonitorIcon, DocumentIcon, CalendarIcon, GearIcon, HealthMarkIcon } from '../../icons'
+import { SyringeIcon, MonitorIcon, DocumentIcon, CalendarIcon, GearIcon } from '../../icons'
 import { APP_VERSION } from '../../utils/version'
 import './HomeScreen.css'
 
@@ -10,7 +10,7 @@ function HomeScreen({ onOpenVacinacao, onOpenSettings }) {
     <div className="home-screen screen-enter">
       <div className="home-topbar">
         <span className="home-brand-mark">
-          <HealthMarkIcon size={22} />
+          <img src='/brasao.png' alt='USF' width={32} height={32} style={{objectFit: 'contain'}} />
         </span>
         <div className="home-brand-texts">
           <strong>USF</strong>
@@ -23,10 +23,11 @@ function HomeScreen({ onOpenVacinacao, onOpenSettings }) {
 
       <div className="home-hero">
         <span className="home-hero-mark">
-          <HealthMarkIcon size={56} />
+          <img src='/brasao.png' alt='USF' width={100} height={100} style={{objectFit: 'contain'}} />
         </span>
         <h1>USF</h1>
         <p>Unidade de Saúde da Família</p>
+        <p>Lindalva Damasceno</p>
       </div>
 
       <nav className="home-nav-list">
