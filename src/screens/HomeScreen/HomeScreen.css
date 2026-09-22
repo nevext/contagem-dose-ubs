@@ -79,7 +79,7 @@
   margin: 0;
   font-size: 15px;
   color: var(--clay-text-muted);
-  line-height: 0.5;
+  line-height: 1.25;
 }
 
 .home-nav-list {
