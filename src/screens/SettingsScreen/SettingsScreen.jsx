@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import ScreenHeader from '../../components/ScreenHeader/ScreenHeader'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
-import { HealthMarkIcon, TrashIcon, DownloadIcon, UploadIcon, AlertIcon } from '../../icons'
+import { TrashIcon, DownloadIcon, UploadIcon, AlertIcon } from '../../icons'
 import { APP_VERSION } from '../../utils/version'
 import { parseBackupJson } from '../../utils/exportData'
 import './SettingsScreen.css'
@@ -49,7 +49,7 @@ function SettingsScreen({ onClearData, onExportBackup, onImportBackup, onBack })
         <p className="settings-section-title">Sobre o app</p>
         <div className="settings-about-card">
           <span className="settings-about-icon">
-            <HealthMarkIcon size={22} />
+            <img src="/brasao.png" alt="USF" width={32} height={32} style={{ objectFit: 'contain' }} />
           </span>
           <div className="settings-about-texts">
             <strong>Contagem de Doses · USF</strong>
