@@ -30,6 +30,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
+  font-family: 'Inter', sans-serif;
   line-height: 1.1;
 }
 
@@ -69,15 +70,18 @@
 
 .home-hero h1 {
   margin: 0;
+  font-family: 'Inter', sans-serif;
   font-size: 40px;
-  font-weight: 800;
-  letter-spacing: 1px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
   color: var(--clay-text-heading);
 }
 
 .home-hero p {
   margin: 0;
+  font-family: 'Inter', sans-serif;
   font-size: 15px;
+  font-weight: 500;
   color: var(--clay-text-muted);
   line-height: 1.25;
 }
