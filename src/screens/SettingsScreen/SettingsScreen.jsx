@@ -49,7 +49,7 @@ function SettingsScreen({ onClearData, onExportBackup, onImportBackup, onBack })
         <p className="settings-section-title">Sobre o app</p>
         <div className="settings-about-card">
           <span className="settings-about-icon">
-            <img src="/brasao.png" alt="USF" width={32} height={32} style={{ objectFit: 'contain' }} />
+            <img className="settings-about-image" src="/brasao.png" alt="USF" width={32} height={32} />
           </span>
           <div className="settings-about-texts">
             <strong>Contagem de Doses · USF</strong>
@@ -69,7 +69,12 @@ function SettingsScreen({ onClearData, onExportBackup, onImportBackup, onBack })
           </div>
         </button>
 
-        <button type="button" className="settings-option clay-tap" onClick={() => fileInputRef.current?.click()}>
+        <button
+          type="button"
+          className="settings-option clay-tap"
+          aria-label="Importar backup"
+          onClick={() => fileInputRef.current?.click()}
+        >
           <span className="settings-option-icon">
             <UploadIcon size={18} />
           </span>
@@ -78,7 +83,15 @@ function SettingsScreen({ onClearData, onExportBackup, onImportBackup, onBack })
             <span>Carrega um arquivo de backup (deste ou de outro aparelho). O que já existe é atualizado, o resto é adicionado.</span>
           </div>
         </button>
-        <input ref={fileInputRef} type="file" accept="application/json" hidden onChange={handleFileChosen} />
+        <input
+          ref={fileInputRef}
+          id="backup-file-input"
+          type="file"
+          accept="application/json"
+          hidden
+          aria-label="Selecionar arquivo de backup"
+          onChange={handleFileChosen}
+        />
         {importError && (
           <p className="settings-import-error">
             <AlertIcon size={16} />

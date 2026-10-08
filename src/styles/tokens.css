@@ -1,5 +1,8 @@
 /* Tokens do estilo claymorphism usado em todo o app. Ajustar aqui muda o app inteiro. */
 :root {
+  --font-display: 'Baloo 2', 'Trebuchet MS', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+
   --clay-bg-top: #eef6ef;
   --clay-bg-mid: #dcebe1;
   --clay-bg-bottom: #cfe3d6;
@@ -33,5 +36,5 @@
   --clay-raised-strong: 10px 10px 22px var(--clay-shadow-dark-strong), -8px -8px 18px var(--clay-shadow-light);
   --clay-pressed: inset 4px 4px 10px var(--clay-shadow-dark), inset -4px -4px 10px var(--clay-shadow-light);
 
-  font-family: 'Baloo 2', 'Quicksand', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-display);
 }

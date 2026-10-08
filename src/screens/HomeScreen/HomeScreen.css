@@ -30,7 +30,6 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  font-family: 'Inter', sans-serif;
   line-height: 1.1;
 }
 
@@ -43,6 +42,11 @@
 .home-brand-texts span {
   font-size: 12px;
   color: var(--clay-text-muted);
+}
+
+.home-brand-mark img,
+.home-hero-mark img {
+  object-fit: contain;
 }
 
 .home-hero {
@@ -70,16 +74,16 @@
 
 .home-hero h1 {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-display);
   font-size: 40px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.2px;
   color: var(--clay-text-heading);
 }
 
 .home-hero p {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   font-weight: 500;
   color: var(--clay-text-muted);

@@ -43,6 +43,10 @@
   justify-content: center;
 }
 
+.settings-about-image {
+  object-fit: contain;
+}
+
 .settings-about-texts {
   display: flex;
   flex-direction: column;
