@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "contagem-dose-ubs",
+  "kind": "spa",
+  "framework": "vite-react",
+  "backend": false,
+  "httpApi": false,
+  "database": false,
+  "persistence": {
+    "type": "browser-localStorage",
+    "storageKey": "contagem-dose-ubs",
+    "entrypoints": [
+      "src/storage/appState.js",
+      "src/hooks/useAppController.js"
+    ],
+    "fileExport": "src/utils/exportData.js"
+  },
+  "documentation": ["README.md", "docs/arquitetura.md"]
+}

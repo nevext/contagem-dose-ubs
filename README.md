@@ -23,13 +23,13 @@ npm run preview
 
 ## Arquitetura
 
-**Tipo:** single-page application (SPA) — apenas cliente, sem backend neste repositório.
+**Tipo:** single-page application (SPA) — **apenas cliente, sem backend** neste repositório (dados em `localStorage`, não em banco remoto).
 
 | Aspecto | Decisão |
 | --- | --- |
 | API HTTP | Não há. Não existem pastas `app/api`, `routes`, `server` nem funções serverless. |
 | Banco de dados | Não há. Nenhum driver ou ORM nas dependências (`package.json`). |
-| Persistência | `localStorage` do navegador (chave `contagem-dose-ubs`), sincronizado pelo estado em `src/App.jsx`. |
+| Persistência | `localStorage` (chave `contagem-dose-ubs`) via `src/storage/`; o hook `useAppController` carrega e salva. |
 | Backup / troca de aparelho | Exportação e importação de JSON em `src/utils/exportData.js` (tela Definições). |
 | Relatório diário | Ao finalizar o dia, gera CSV no dispositivo (`exportHistoricoCsv`). |
 
@@ -49,9 +49,13 @@ Navegação é controlada por estado local (`screen` em `App.jsx`), não por Rea
 ```
 contagem-dose-ubs/
 ├── public/              # estáticos (ex.: brasao.png)
+├── docs/                # arquitetura detalhada (varredura / onboarding)
+├── architecture.json    # metadados: SPA, sem API/DB, persistência local
 ├── src/
-│   ├── App.jsx          # estado global, persistência, roteamento por tela
+│   ├── App.jsx          # composição de telas
 │   ├── main.jsx         # entrada React
+│   ├── storage/         # persistência no localStorage (única “fonte de dados”)
+│   ├── hooks/           # useAppController — estado + fluxo
 │   ├── components/      # UI reutilizável (contador, diálogos, cabeçalho…)
 │   ├── screens/         # telas do fluxo de vacinação
 │   ├── utils/           # datas, vacinas, exportação de arquivos

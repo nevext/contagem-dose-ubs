@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { defaultAppState, loadAppState, saveAppState } from '../utils/appState.js'
+import { defaultAppState, loadAppState, saveAppState } from '../storage/appState.js'
 import { exportHistoricoCsv } from '../utils/exportData.js'
 import { normalizeVaccine, totalDoses } from '../utils/vaccine.js'
 
